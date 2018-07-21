@@ -6,9 +6,10 @@ export function lasfmQuery() {
   };
 };
 
-export function lastFmResult() {
+export function lastFmResult(data) {
   return {
-    type: lastFmActions.FETCH_LAST_FM_SUCCESS
+    type: lastFmActions.FETCH_LAST_FM_SUCCESS,
+    payload: data.weeklyalbumchart.album
   };
 }
 
