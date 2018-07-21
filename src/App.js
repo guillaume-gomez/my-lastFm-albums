@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
 import { lasfmQuery } from "./actions/lastFmActions";
@@ -15,6 +15,7 @@ class App extends Component {
     this.props.lasfmQuery();
 
     this.renderError = this.renderError.bind(this);
+    this.renderData = this.renderData.bind(this);
   }
 
   renderError() {
@@ -25,18 +26,29 @@ class App extends Component {
     return null;
   }
 
+  renderData() {
+    const { data } = this.props.lastFm;
+    if(!data) {
+      return null;
+    }
+    return (
+      <ul>
+        {
+          data.map((d, index) =><li key={index}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>)
+        }
+      </ul>
+    );
+  }
+
   render() {
-    const { error } = this.props.lastFm;
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">My albums list</h1>
         </header>
         {this.renderError()}
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {this.renderData()}
       </div>
     );
   }
