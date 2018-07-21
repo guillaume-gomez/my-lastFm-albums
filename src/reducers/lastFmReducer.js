@@ -12,6 +12,7 @@ export default function(state = initialState, action) {
       return { data: action.payload, error: null }
     case lastFmActions.FETCH_LAST_FM_ERRORS:
       return Object.assign({}, state, { error: action.payload });
+    default:
+      return state;
   }
-  return (state);
 };
