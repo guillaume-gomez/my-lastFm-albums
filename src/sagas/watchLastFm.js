@@ -1,27 +1,22 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import { lastFmActions } from "../constants";
 
 import { lastFmResult, lastFmError } from '../actions/lastFmActions';
 
-function* lastfmQuery({ payload: {email, password} }) {
-    const response = yield fetch("/oauth/token", {
-        method: 'post',
-        headers: {},
-        body: JSON.stringify(
-        {
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
-          grant_type: "password",
-          username: email,
-          password: password
-        }),
+const api_key = process.env.API_KEY;
+const user = "musirama";
+const limit = 20;
+
+function* lastfmQuery() {
+    const response = yield fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${user}&api_key=${api_key}&format=json&limit=${limit}`, {
+      method: 'get',
     })
     .then((res) => res.json());
-    const { access_token } = response;
-    if(access_token) {
-      yield put(lastFmResult({ accessToken: access_token }));
+    const { data, error } = response;
+    if(error) {
+      yield put(lastFmError(response.message));
     } else {
-      yield put(lastFmError());
+      yield put(lastFmResult({ data }));
     }
 }
 

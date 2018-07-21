@@ -1,4 +1,4 @@
-//import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,7 +15,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 const hist = createBrowserHistory();
 // set up dotenv
-//dotenv.config()
+dotenv.config()
 
 
 document.addEventListener("DOMContentLoaded", e => {
