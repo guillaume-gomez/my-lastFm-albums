@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 // import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
-import { lasfmQuery } from "./actions/lastFmActions";
+import Button from '@material-ui/core/Button';
+
+import { lasfmQuery, fetchUser } from "./actions/lastFmActions";
 
 import logo from './logo.svg';
 import './App.css';
@@ -13,9 +15,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.props.lasfmQuery();
+    this.props.fetchUser("musirama");
 
     this.renderError = this.renderError.bind(this);
     this.renderData = this.renderData.bind(this);
+    this.appendData = this.appendData.bind(this);
   }
 
   renderError() {
@@ -31,13 +35,29 @@ class App extends Component {
     if(!data) {
       return null;
     }
-    return (
-      <ul>
-        {
-          data.map((d, index) =><li key={index}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>)
-        }
-      </ul>
-    );
+
+    const chunks = data.map((chunk, i) => {
+      return (
+        <div>
+          <h5 key={i}>{chunk.from} - {chunk.to}</h5>
+          <ul>
+          {
+            chunk.payload.map((d, j) => (<li key={j}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>))
+          }
+          </ul>
+        </div>
+      );
+    });
+    return chunks;
+  }
+
+  appendData() {
+    const { lasfmQuery, lastFm } = this.props;
+    const lastChunk = lastFm.data[lastFm.data.length - 1];
+    const { from, to } = lastChunk;
+    const newTo = from - 1;
+    const newFrom = newTo - (7 * 60 * 60 * 24);
+    lasfmQuery(newFrom, newTo);
   }
 
   render() {
@@ -48,7 +68,10 @@ class App extends Component {
           <h1 className="App-title">My albums list</h1>
         </header>
         {this.renderError()}
-        {this.renderData()}
+        <div>
+          <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
+          {this.renderData()}
+        </div>
       </div>
     );
   }
@@ -56,13 +79,15 @@ class App extends Component {
 
 const mapStateToProps = (store) => {
   return ({
-    lastFm: store.lastFm
+    lastFm: store.lastFm,
+    user: store.user
   });
 };
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    lasfmQuery: () => dispatch(lasfmQuery()),
+    lasfmQuery: (from, to) => dispatch(lasfmQuery(from, to)),
+    fetchUser: (user) => dispatch(fetchUser(user))
   });
 };
 
