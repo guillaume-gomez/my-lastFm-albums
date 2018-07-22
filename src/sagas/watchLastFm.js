@@ -5,10 +5,17 @@ import { lastFmResult, lastFmError } from '../actions/lastFmActions';
 
 const api_key = process.env.REACT_APP_API_KEY;
 const user = "musirama";
-const limit = 50;
+const limit = 5;
 
-function* lastfmQuery() {
-    const response = yield fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${user}&api_key=${api_key}&format=json&limit=${limit}`, {
+function* lastfmQuery({ from, to }) {
+    let url = `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${user}&api_key=${api_key}&format=json&limit=${limit}`;
+    if(from) {
+      url = `${url}&from=${from}`;
+    }
+    if(to) {
+      url = `${url}&to=${to}`;
+    }
+    const response = yield fetch(url, {
       method: 'get',
     })
     .then((res) => res.json());
