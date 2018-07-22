@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
@@ -46,7 +47,9 @@ class App extends Component {
           <h5>{chunk.from} - {chunk.to}</h5>
           {
             chunk.payload.map((d, j) => (
-              <AlbumCard key={chunk.from * j} album={d}/>
+              <Grid item xs={12} style={{padding: 10}}>
+                <AlbumCard key={chunk.from * j} album={d}/>
+              </Grid>
               )
             )
           }
@@ -75,11 +78,13 @@ class App extends Component {
             <h1 className="App-title">My albums list</h1>
           </header>
           <MenuAppBar user={user}/>
+          <Grid container spacing={24} style={{padding: 24}}>
             {this.renderError()}
             <div>
               <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
               {this.renderData()}
             </div>
+          </Grid>
         </div>
     </div>
     );
