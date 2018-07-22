@@ -19,7 +19,6 @@ const styles = {
 
 function ImageAvatars(props) {
   const { classes, user } = props;
-  console.log(user)
   if(!user.user) {
     return null;
   }
