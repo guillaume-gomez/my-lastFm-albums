@@ -38,11 +38,11 @@ class App extends Component {
 
     const chunks = data.map((chunk, i) => {
       return (
-        <div>
-          <h5 key={i}>{chunk.from} - {chunk.to}</h5>
+        <div key={i}>
+          <h5>{chunk.from} - {chunk.to}</h5>
           <ul>
           {
-            chunk.payload.map((d, j) => (<li key={j}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>))
+            chunk.payload.map((d, j) => (<li key={chunk.from * j}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>))
           }
           </ul>
         </div>
