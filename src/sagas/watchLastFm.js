@@ -4,11 +4,9 @@ import { lastFmActions } from "../constants";
 import { lastFmResult, lastFmError } from '../actions/lastFmActions';
 
 const api_key = process.env.REACT_APP_API_KEY;
-const user = "musirama";
-const limit = 5;
 
-function* lastfmQuery({ from, to }) {
-    let url = `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${user}&api_key=${api_key}&format=json&limit=${limit}`;
+function* lastfmQuery({ user, from, to }) {
+    let url = `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${user}&api_key=${api_key}&format=json`;
     if(from) {
       url = `${url}&from=${from}`;
     }

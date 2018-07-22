@@ -6,16 +6,20 @@ import Button from '@material-ui/core/Button';
 
 import { lasfmQuery, fetchUser } from "./actions/lastFmActions";
 
+import MenuAppBar from "./MenuAppBar";
+import AlbumCard from "./AlbumCard";
+
 import logo from './logo.svg';
 import './App.css';
 
+const defaultUser ="musirama";
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.props.lasfmQuery();
-    this.props.fetchUser("musirama");
+    this.props.lasfmQuery(defaultUser);
+    this.props.fetchUser(defaultUser);
 
     this.renderError = this.renderError.bind(this);
     this.renderData = this.renderData.bind(this);
@@ -40,11 +44,12 @@ class App extends Component {
       return (
         <div key={i}>
           <h5>{chunk.from} - {chunk.to}</h5>
-          <ul>
           {
-            chunk.payload.map((d, j) => (<li key={chunk.from * j}>{d.artist["#text"]} / {d.name} : #{d.playcount}</li>))
+            chunk.payload.map((d, j) => (
+              <AlbumCard key={chunk.from * j} album={d}/>
+              )
+            )
           }
-          </ul>
         </div>
       );
     });
@@ -54,25 +59,29 @@ class App extends Component {
   appendData() {
     const { lasfmQuery, lastFm } = this.props;
     const lastChunk = lastFm.data[lastFm.data.length - 1];
-    const { from, to } = lastChunk;
+    const { from } = lastChunk;
     const newTo = from - 1;
     const newFrom = newTo - (7 * 60 * 60 * 24);
-    lasfmQuery(newFrom, newTo);
+    lasfmQuery(defaultUser, newFrom, newTo);
   }
 
   render() {
+    const { user } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">My albums list</h1>
-        </header>
-        {this.renderError()}
-        <div>
-          <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
-          {this.renderData()}
+      <div>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">My albums list</h1>
+          </header>
+          <MenuAppBar user={user}/>
+            {this.renderError()}
+            <div>
+              <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
+              {this.renderData()}
+            </div>
         </div>
-      </div>
+    </div>
     );
   }
 };
@@ -86,7 +95,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    lasfmQuery: (from, to) => dispatch(lasfmQuery(from, to)),
+    lasfmQuery: (user, from, to) => dispatch(lasfmQuery(user, from, to)),
     fetchUser: (user) => dispatch(fetchUser(user))
   });
 };

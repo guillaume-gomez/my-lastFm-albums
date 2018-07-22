@@ -1,8 +1,9 @@
 import { lastFmActions, userActions } from "../constants";
 
-export function lasfmQuery(from = null, to = null) {
+export function lasfmQuery(user, from = null, to = null) {
   return {
     type: lastFmActions.FETCH_LAST_FM,
+    user,
     from,
     to
   };
