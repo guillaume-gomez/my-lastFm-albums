@@ -1,4 +1,4 @@
-import { lastFmActions, userActions } from "../constants";
+import { lastFmActions, userActions, albumInfosActions } from "../constants";
 
 export function lasfmQueryWeekAlbum(user, from = null, to = null) {
   return {
@@ -12,9 +12,9 @@ export function lasfmQueryWeekAlbum(user, from = null, to = null) {
 export function lastFmWeekAlbum(data) {
   return {
     type: lastFmActions.FETCH_LAST_FM_SUCCESS,
-    payload: data.weeklyalbumchart.album,
-    from: data.weeklyalbumchart["@attr"].from,
-    to: data.weeklyalbumchart["@attr"].to
+    payload: data.album,
+    from: data["@attr"].from,
+    to: data["@attr"].to
   };
 }
 
@@ -42,6 +42,28 @@ export function fetchUserSuccess(user) {
 export function fetchUserError(message) {
   return {
     type: userActions.FETCH_USER_DATA_ERRORS,
+    message
+  };
+}
+
+export function fetchAlbumInfos(user, album) {
+  return {
+    type: albumInfosActions.FETCH_ALBUMS_INFOS,
+    album,
+    user
+  };
+}
+
+export function fetchAlbumInfosSuccess(result) {
+  return {
+    type: albumInfosActions.FETCH_ALBUMS_INFOS_SUCCESS,
+    result
+  };
+}
+
+export function fetchAlbumInfosError(message) {
+  return {
+    type: albumInfosActions.FETCH_ALBUMS_INFOS_ERRORS,
     message
   };
 }
