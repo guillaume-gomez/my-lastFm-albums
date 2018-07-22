@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 
-import { lasfmQuery, fetchUser } from "./actions/lastFmActions";
+import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
 
 import MenuAppBar from "./MenuAppBar";
 import AlbumCard from "./AlbumCard";
@@ -18,7 +18,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.props.lasfmQuery(defaultUser);
+    this.props.lasfmQueryWeekAlbum(defaultUser);
     this.props.fetchUser(defaultUser);
 
     this.renderError = this.renderError.bind(this);
@@ -57,12 +57,12 @@ class App extends Component {
   }
 
   appendData() {
-    const { lasfmQuery, lastFm } = this.props;
+    const { lasfmQueryWeekAlbum, lastFm } = this.props;
     const lastChunk = lastFm.data[lastFm.data.length - 1];
     const { from } = lastChunk;
     const newTo = from - 1;
     const newFrom = newTo - (7 * 60 * 60 * 24);
-    lasfmQuery(defaultUser, newFrom, newTo);
+    lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
   }
 
   render() {
@@ -95,7 +95,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    lasfmQuery: (user, from, to) => dispatch(lasfmQuery(user, from, to)),
+    lasfmQueryWeekAlbum: (user, from, to) => dispatch(lasfmQueryWeekAlbum(user, from, to)),
     fetchUser: (user) => dispatch(fetchUser(user))
   });
 };

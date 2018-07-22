@@ -1,6 +1,6 @@
 import { lastFmActions, userActions } from "../constants";
 
-export function lasfmQuery(user, from = null, to = null) {
+export function lasfmQueryWeekAlbum(user, from = null, to = null) {
   return {
     type: lastFmActions.FETCH_LAST_FM,
     user,
@@ -9,7 +9,7 @@ export function lasfmQuery(user, from = null, to = null) {
   };
 };
 
-export function lastFmResult(data) {
+export function lastFmWeekAlbum(data) {
   return {
     type: lastFmActions.FETCH_LAST_FM_SUCCESS,
     payload: data.weeklyalbumchart.album,
@@ -18,7 +18,7 @@ export function lastFmResult(data) {
   };
 }
 
-export function lastFmError(message) {
+export function lastFmWeekAlbumError(message) {
   return {
     type: lastFmActions.FETCH_LAST_FM_ERRORS,
     message

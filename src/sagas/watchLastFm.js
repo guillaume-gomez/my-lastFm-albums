@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { lastFmActions } from "../constants";
 
-import { lastFmResult, lastFmError } from '../actions/lastFmActions';
+import { lastFmWeekAlbum, lastFmWeekAlbumError } from '../actions/lastFmActions';
 
 const api_key = process.env.REACT_APP_API_KEY;
 
@@ -19,9 +19,9 @@ function* lastfmQuery({ user, from, to }) {
     .then((res) => res.json());
     const { error } = response;
     if(error) {
-      yield put(lastFmError(response.message));
+      yield put(lastFmWeekAlbumError(response.message));
     } else {
-      yield put(lastFmResult(response));
+      yield put(lastFmWeekAlbum(response));
     }
 }
 
