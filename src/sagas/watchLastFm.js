@@ -1,7 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, all, fork } from 'redux-saga/effects';
 import { lastFmActions } from "../constants";
 
 import { lastFmWeekAlbum, lastFmWeekAlbumError} from '../actions/lastFmActions';
+
+import { lastFmAlbumInfosQuery } from "./watchAlbumInfos";
 
 const api_key = process.env.REACT_APP_API_KEY;
 
@@ -22,6 +24,8 @@ function* lastfmQuery({ user, from, to }) {
       yield put(lastFmWeekAlbumError(response.message));
     } else {
       yield put(lastFmWeekAlbum(weeklyalbumchart));
+      const { album } = weeklyalbumchart;
+      yield all(album.map(a => fork(lastFmAlbumInfosQuery,{ user, album: a })))
     }
 }
 

@@ -54,10 +54,10 @@ export function fetchAlbumInfos(user, album) {
   };
 }
 
-export function fetchAlbumInfosSuccess(result) {
+export function fetchAlbumInfosSuccess(album) {
   return {
     type: albumInfosActions.FETCH_ALBUMS_INFOS_SUCCESS,
-    result
+    album
   };
 }
 
