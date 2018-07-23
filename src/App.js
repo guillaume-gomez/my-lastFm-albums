@@ -25,6 +25,7 @@ class App extends Component {
     this.renderError = this.renderError.bind(this);
     this.renderData = this.renderData.bind(this);
     this.appendData = this.appendData.bind(this);
+    this.aggregateAlbumData = this.aggregateAlbumData.bind(this);
   }
 
   renderError() {
@@ -33,6 +34,20 @@ class App extends Component {
       return <p style={{color: "red"}}>{error}</p>;
     }
     return null;
+  }
+
+  aggregateAlbumData(albumFromStore) {
+    const { albumsInfos } = this.props;
+    const { albums } = albumsInfos;
+    if(!albums || albums.length === 0) {
+      return albumFromStore;
+    }
+    const albumData = albums.find((album) => albumFromStore.name === album.name && albumFromStore.artist["#text"] === album.artist);
+    if(!albumData) {
+      return albumFromStore;
+    }
+    //console.log(Object.assign({}, albumFromStore, { cover: albumData.image[3] }));
+    return Object.assign({}, albumFromStore, { cover: albumData.image[3] });
   }
 
   renderData() {
@@ -47,9 +62,9 @@ class App extends Component {
           <h5>{chunk.from} - {chunk.to}</h5>
           {
             chunk.payload.map((d, j) => (
-              <Grid item xs={12} style={{padding: 10}}>
-                <AlbumCard key={chunk.from * j} album={d}/>
-              </Grid>
+                <Grid item xs={12} style={{padding: 10}} key={chunk.from * j}>
+                  <AlbumCard album={this.aggregateAlbumData(d)}/>
+                </Grid>
               )
             )
           }
@@ -94,7 +109,8 @@ class App extends Component {
 const mapStateToProps = (store) => {
   return ({
     lastFm: store.lastFm,
-    user: store.user
+    user: store.user,
+    albumsInfos: store.albumsInfos
   });
 };
 

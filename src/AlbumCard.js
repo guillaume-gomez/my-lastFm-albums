@@ -22,13 +22,12 @@ const styles = {
 
 function AlbumCard(props) {
   const { classes, album } = props;
-  console.log(album)
   return (
     <div>
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image={cover}
+          image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
           title="Contemplative Reptile"
         />
         <CardContent>
