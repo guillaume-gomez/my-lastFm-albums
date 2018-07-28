@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
 
@@ -14,6 +15,19 @@ import logo from './logo.svg';
 import './App.css';
 
 const defaultUser ="musirama";
+
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
+
 
 class App extends Component {
 
@@ -58,17 +72,19 @@ class App extends Component {
 
     const chunks = data.map((chunk, i) => {
       return (
-        <div key={i}>
-          <h5>{chunk.from} - {chunk.to}</h5>
+        <Grid container key={i} direction="row"  alignItems="center">
+          <Grid item xs={12}>
+            <h5>{chunk.from} - {chunk.to}</h5>
+          </Grid>
           {
             chunk.payload.map((d, j) => (
-                <Grid item xs={12} style={{padding: 10}} key={chunk.from * j}>
+                <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
                   <AlbumCard album={this.aggregateAlbumData(d)}/>
                 </Grid>
               )
             )
           }
-        </div>
+        </Grid>
       );
     });
     return chunks;
@@ -92,14 +108,14 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">My albums list</h1>
           </header>
-          <MenuAppBar user={user}/>
-          <Grid container spacing={24} style={{padding: 24}} direction="row" justify="center" alignItems="center">
+          <div>
+            <MenuAppBar user={user}/>
             {this.renderError()}
-            <div>
-              <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
+            <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
+            <Grid container spacing={24} direction="row">
               {this.renderData()}
-            </div>
-          </Grid>
+            </Grid>
+          </div>
         </div>
     </div>
     );
@@ -121,4 +137,5 @@ const mapDispatchToProps = (dispatch) => {
   });
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const styledComponent =  withStyles(styles)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);
