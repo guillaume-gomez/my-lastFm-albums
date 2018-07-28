@@ -93,7 +93,7 @@ class App extends Component {
             <h1 className="App-title">My albums list</h1>
           </header>
           <MenuAppBar user={user}/>
-          <Grid container spacing={24} style={{padding: 24}}>
+          <Grid container spacing={24} style={{padding: 24}} direction="row" justify="center" alignItems="center">
             {this.renderError()}
             <div>
               <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
