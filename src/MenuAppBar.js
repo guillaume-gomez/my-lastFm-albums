@@ -1,10 +1,12 @@
 import React from 'react';
+import moment from "moment";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 
 import ImageAvatars from "./ImageAvatars";
 
@@ -19,6 +21,13 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  textFieldDate: {
+    color: "white"
+  },
+  textFieldDateLabel: {
+    color: "white",
+    shrink: true,
+  }
 };
 
 class MenuAppBar extends React.Component {
@@ -36,11 +45,32 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, dateRange } = this.props;
+    const { from, to } = dateRange;
+    const formattedFrom = moment(from).format("YYYY-MM-DD");
+    const formattedTo = moment(to).format("YYYY-MM-DD");
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
+            <TextField
+              color="white"
+              id="date"
+              label="from"
+              type="date"
+              value={formattedFrom}
+              InputLabelProps={{className: classes.textFieldDateLabel}}
+              InputProps={{className: classes.textFieldDate}}
+            />
+            <TextField
+              id="date"
+              label="to"
+              type="date"
+              value={formattedTo}
+              onChange={(data) => {console.log(data.target.value)}}
+              InputLabelProps={{className: classes.textFieldDateLabel}}
+              InputProps={{className: classes.textFieldDate}}
+            />
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>

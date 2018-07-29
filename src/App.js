@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -48,6 +49,7 @@ class App extends Component {
     this.renderData = this.renderData.bind(this);
     this.appendData = this.appendData.bind(this);
     this.aggregateAlbumData = this.aggregateAlbumData.bind(this);
+    this.getDateRange = this.getDateRange.bind(this);
   }
 
   renderError() {
@@ -121,6 +123,18 @@ class App extends Component {
     lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
   }
 
+  getDateRange() {
+    const { lastFm } = this.props;
+    if(lastFm.data.length === 0) {
+      return { from: new Date(), to: new Date()};
+    }
+    const firstChunk = lastFm.data[0];
+    const lastChunk = lastFm.data[lastFm.data.length - 1];
+    const { from } = lastChunk;
+    const { to } = firstChunk;
+    return { from: (from * 1000), to: (to * 1000) };
+  }
+
   render() {
     const { user, classes } = this.props;
     return (
@@ -131,7 +145,7 @@ class App extends Component {
             <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
           <div>
-            <MenuAppBar user={user}/>
+            <MenuAppBar user={user} dateRange={this.getDateRange()} />
             {this.renderError()}
             <Grid container spacing={8} justify="flex-start">
               <div>
