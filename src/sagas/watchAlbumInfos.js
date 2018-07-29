@@ -1,5 +1,4 @@
 import { put } from 'redux-saga/effects';
-import { albumInfosActions } from "../constants";
 
 import { fetchAlbumInfosSuccess, fetchAlbumInfosError} from '../actions/lastFmActions';
 

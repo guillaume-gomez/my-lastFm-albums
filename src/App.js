@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { withStyles } from '@material-ui/core/styles';
 
 import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
@@ -60,19 +62,23 @@ class App extends Component {
     if(!albumData) {
       return albumFromStore;
     }
-    //console.log(Object.assign({}, albumFromStore, { cover: albumData.image[3] }));
     return Object.assign({}, albumFromStore, { cover: albumData.image[3] });
   }
 
   renderData() {
+    const { classes } = this.props;
     const { data } = this.props.lastFm;
-    if(!data) {
-      return null;
+    if(!data || data.length === 0) {
+      return (
+        <Grid container justify="center" alignItems="center">
+          <CircularProgress className={classes.progress} size={50} style={{padding: 40}} />
+        </Grid>
+      );
     }
 
     const chunks = data.map((chunk, i) => {
       return (
-        <Grid container key={i} direction="row"  alignItems="center">
+        <Grid container key={i} direction="row" alignItems="center">
           <Grid item xs={12}>
             <h5>{chunk.from} - {chunk.to}</h5>
           </Grid>
