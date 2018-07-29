@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from "moment";
 // import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
@@ -21,7 +22,7 @@ import logo from './lastfm.svg';
 import '../node_modules/animate.css/animate.min.css'
 import './App.css';
 
-const defaultUser ="musirama";
+const defaultUser = "musirama";
 
 
 const styles = theme => ({
@@ -80,13 +81,16 @@ class App extends Component {
         </Grid>
       );
     }
+
     const chunks = data.map((chunk, i) => {
+      const fromDate = moment(1000 * chunk.from);
+      const toDate = moment(1000 * chunk.to)
       return (
         <Paper key={i * chunk.from} className={classes.root} elevation={5}>
           <Grid container alignItems="center">
             <Grid item xs={12}>
-              <Typography variant="headline" component="h5">
-                {chunk.from} - {chunk.to}
+              <Typography variant="headline" component="h4">
+                ({fromDate.format("DD")}/{toDate.format("DD) MM/YYYY")}
               </Typography>
             </Grid>
             <Grid container direction="row" alignItems="center">
