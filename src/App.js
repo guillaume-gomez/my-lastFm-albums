@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 // import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
+import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -75,22 +78,25 @@ class App extends Component {
         </Grid>
       );
     }
-
     const chunks = data.map((chunk, i) => {
       return (
-        <Grid container key={i} direction="row" alignItems="center">
-          <Grid item xs={12}>
-            <h5>{chunk.from} - {chunk.to}</h5>
-          </Grid>
-          {
-            chunk.payload.map((d, j) => (
-                <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
-                  <AlbumCard album={this.aggregateAlbumData(d)}/>
-                </Grid>
+        <Paper key={i * chunk.from} className={classes.root} elevation={5}>
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={12}>
+              <Typography variant="headline" component="h5">
+                {chunk.from} - {chunk.to}
+              </Typography>
+            </Grid>
+            {
+              chunk.payload.map((d, j) => (
+                  <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
+                    <AlbumCard album={this.aggregateAlbumData(d)}/>
+                  </Grid>
+                )
               )
-            )
-          }
-        </Grid>
+            }
+          </Grid>
+        </Paper>
       );
     });
     return chunks;
@@ -106,7 +112,7 @@ class App extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, classes } = this.props;
     return (
       <div>
         <div className="App">
@@ -117,8 +123,12 @@ class App extends Component {
           <div>
             <MenuAppBar user={user}/>
             {this.renderError()}
-            <Button onClick={this.appendData} variant="contained" color="primary">More</Button>
             <Grid container spacing={24} direction="row">
+              <div>
+              <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.button} style={{margin: 20}}>
+                <AddIcon />
+              </Button>
+              </div>
               {this.renderData()}
             </Grid>
           </div>
