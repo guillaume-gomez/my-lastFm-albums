@@ -23,8 +23,20 @@ const styles = {
 
 class MenuAppBar extends React.Component {
 
+  helloMessage = () => {
+    const { user } = this.props;
+    if(!user.user) {
+      return null;
+    }
+    return (
+      <p>
+        Hello <b>{user.user.name}</b>
+      </p>);
+  }
+
   render() {
     const { classes, user } = this.props;
+    const realname = user.user ? user.user.realname : null;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -32,7 +44,7 @@ class MenuAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              My album list
+            {this.helloMessage()}
             </Typography>
             {user && (
               <div>
