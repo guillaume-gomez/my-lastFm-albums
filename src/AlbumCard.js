@@ -12,7 +12,7 @@ import cover from './default-release-cd.png';
 
 const styles = {
   card: {
-    maxWidth: 345,
+    maxWidth: 300,
   },
   media: {
     height: 0,

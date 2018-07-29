@@ -15,6 +15,7 @@ import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
 
 import MenuAppBar from "./MenuAppBar";
 import AlbumCard from "./AlbumCard";
+import Footer from "./Footer";
 
 import logo from './lastfm.svg';
 import '../node_modules/animate.css/animate.min.css'
@@ -82,20 +83,24 @@ class App extends Component {
     const chunks = data.map((chunk, i) => {
       return (
         <Paper key={i * chunk.from} className={classes.root} elevation={5}>
-          <Grid container direction="row" alignItems="center">
+          <Grid container alignItems="center">
             <Grid item xs={12}>
               <Typography variant="headline" component="h5">
                 {chunk.from} - {chunk.to}
               </Typography>
             </Grid>
-            {
-              chunk.payload.map((d, j) => (
-                  <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
-                    <AlbumCard album={this.aggregateAlbumData(d)}/>
-                  </Grid>
+            <Grid container direction="row" alignItems="center">
+              {
+                chunk.payload.map((d, j) => (
+                    <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
+                      <Grid container justify="center">
+                        <AlbumCard album={this.aggregateAlbumData(d)}/>
+                      </Grid>
+                    </Grid>
+                  )
                 )
-              )
-            }
+              }
+            </Grid>
           </Grid>
         </Paper>
       );
@@ -115,7 +120,7 @@ class App extends Component {
   render() {
     const { user, classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
@@ -124,16 +129,18 @@ class App extends Component {
           <div>
             <MenuAppBar user={user}/>
             {this.renderError()}
-            <Grid container spacing={24} direction="row">
+            <Grid container spacing={8} justify="flex-start">
               <div>
-              <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.button} style={{margin: 20}}>
-                <AddIcon />
-              </Button>
+                <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.button} style={{margin: 20}}>
+                  <AddIcon />
+                </Button>
               </div>
               {this.renderData()}
             </Grid>
           </div>
         </div>
+        <Footer className="App-footer">
+        </Footer>
     </div>
     );
   }
