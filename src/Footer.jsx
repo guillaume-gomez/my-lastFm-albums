@@ -1,13 +1,7 @@
 import React from "react";
-import cx from "classnames";
-
-// material-ui components
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 
 function Footer({ ...props }) {
-  const { children, className } = props;
+  const { className } = props;
   return (
     <footer className={className}>
       <p>

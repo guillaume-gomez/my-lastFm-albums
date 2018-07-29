@@ -24,7 +24,7 @@ const styles = {
 class MenuAppBar extends React.Component {
 
   helloMessage = () => {
-    const { user, classes } = this.props;
+    const { user } = this.props;
     if(!user.user) {
       return null;
     }
@@ -37,7 +37,6 @@ class MenuAppBar extends React.Component {
 
   render() {
     const { classes, user } = this.props;
-    const realname = user.user ? user.user.realname : null;
     return (
       <div className={classes.root}>
         <AppBar position="static">
