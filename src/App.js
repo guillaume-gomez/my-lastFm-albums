@@ -16,7 +16,8 @@ import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
 import MenuAppBar from "./MenuAppBar";
 import AlbumCard from "./AlbumCard";
 
-import logo from './logo.svg';
+import logo from './lastfm.svg';
+import '../node_modules/animate.css/animate.min.css'
 import './App.css';
 
 const defaultUser ="musirama";
@@ -117,8 +118,8 @@ class App extends Component {
       <div>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">My albums list</h1>
+            <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
+            <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
           <div>
             <MenuAppBar user={user}/>
