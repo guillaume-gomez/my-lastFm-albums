@@ -45,7 +45,7 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { classes, user, dateRange } = this.props;
+    const { classes, user, dateRange, fromChange, toChange } = this.props;
     const { from, to } = dateRange;
     const formattedFrom = moment(from).format("YYYY-MM-DD");
     const formattedTo = moment(to).format("YYYY-MM-DD");
@@ -59,6 +59,7 @@ class MenuAppBar extends React.Component {
               label="from"
               type="date"
               value={formattedFrom}
+              onChange={(data) => {fromChange(data.target.value)}}
               InputLabelProps={{className: classes.textFieldDateLabel}}
               InputProps={{className: classes.textFieldDate}}
             />
@@ -67,7 +68,7 @@ class MenuAppBar extends React.Component {
               label="to"
               type="date"
               value={formattedTo}
-              onChange={(data) => {console.log(data.target.value)}}
+              onChange={(data) => {toChange(data.target.value)}}
               InputLabelProps={{className: classes.textFieldDateLabel}}
               InputProps={{className: classes.textFieldDate}}
             />

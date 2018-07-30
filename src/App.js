@@ -50,6 +50,16 @@ class App extends Component {
     this.appendData = this.appendData.bind(this);
     this.aggregateAlbumData = this.aggregateAlbumData.bind(this);
     this.getDateRange = this.getDateRange.bind(this);
+    this.updateFrom = this.updateFrom.bind(this);
+    this.updateTo = this.updateTo.bind(this);
+  }
+
+  updateFrom(newDate) {
+    console.log(newDate)
+  }
+
+  updateTo(newDate) {
+      console.log(newDate)
   }
 
   renderError() {
@@ -71,6 +81,27 @@ class App extends Component {
       return albumFromStore;
     }
     return Object.assign({}, albumFromStore, { cover: albumData.image[3] });
+  }
+
+  appendData() {
+    const { lasfmQueryWeekAlbum, lastFm } = this.props;
+    const lastChunk = lastFm.data[lastFm.data.length - 1];
+    const { from } = lastChunk;
+    const newTo = from - 1;
+    const newFrom = newTo - (7 * 60 * 60 * 24);
+    lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
+  }
+
+  getDateRange() {
+    const { lastFm } = this.props;
+    if(lastFm.data.length === 0) {
+      return { from: new Date(), to: new Date()};
+    }
+    const firstChunk = lastFm.data[0];
+    const lastChunk = lastFm.data[lastFm.data.length - 1];
+    const { from } = lastChunk;
+    const { to } = firstChunk;
+    return { from: (from * 1000), to: (to * 1000) };
   }
 
   renderData() {
@@ -114,27 +145,6 @@ class App extends Component {
     return chunks;
   }
 
-  appendData() {
-    const { lasfmQueryWeekAlbum, lastFm } = this.props;
-    const lastChunk = lastFm.data[lastFm.data.length - 1];
-    const { from } = lastChunk;
-    const newTo = from - 1;
-    const newFrom = newTo - (7 * 60 * 60 * 24);
-    lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
-  }
-
-  getDateRange() {
-    const { lastFm } = this.props;
-    if(lastFm.data.length === 0) {
-      return { from: new Date(), to: new Date()};
-    }
-    const firstChunk = lastFm.data[0];
-    const lastChunk = lastFm.data[lastFm.data.length - 1];
-    const { from } = lastChunk;
-    const { to } = firstChunk;
-    return { from: (from * 1000), to: (to * 1000) };
-  }
-
   render() {
     const { user, classes } = this.props;
     return (
@@ -145,7 +155,7 @@ class App extends Component {
             <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
           <div>
-            <MenuAppBar user={user} dateRange={this.getDateRange()} />
+            <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} />
             {this.renderError()}
             <Grid container spacing={8} justify="flex-start">
               <div>
