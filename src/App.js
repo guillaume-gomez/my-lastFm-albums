@@ -95,7 +95,7 @@ class App extends Component {
   getDateRange() {
     const { lastFm } = this.props;
     if(lastFm.data.length === 0) {
-      return { from: new Date(), to: new Date()};
+      return { from: null, to: null};
     }
     const firstChunk = lastFm.data[0];
     const lastChunk = lastFm.data[lastFm.data.length - 1];
@@ -123,7 +123,7 @@ class App extends Component {
           <Grid container alignItems="center">
             <Grid item xs={12}>
               <Typography variant="headline" component="h4">
-                ({fromDate.format("DD")}/{toDate.format("DD) MM/YYYY")}
+                {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
               </Typography>
             </Grid>
             <Grid container direction="row" alignItems="center">
