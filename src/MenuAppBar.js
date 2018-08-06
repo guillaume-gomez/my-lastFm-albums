@@ -37,12 +37,12 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { classes, user, dateRange, fromChange, toChange } = this.props;
+    const { classes, user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} />
+            <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>

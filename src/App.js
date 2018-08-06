@@ -52,6 +52,7 @@ class App extends Component {
     this.getDateRange = this.getDateRange.bind(this);
     this.updateFrom = this.updateFrom.bind(this);
     this.updateTo = this.updateTo.bind(this);
+    this.updateRangeDate = this.updateRangeDate.bind(this);
   }
 
   updateFrom(newDate) {
@@ -59,7 +60,11 @@ class App extends Component {
   }
 
   updateTo(newDate) {
-      console.log(newDate)
+    console.log(newDate)
+  }
+
+  updateRangeDate(from, to) {
+    console.log(from, "=>", to);
   }
 
   renderError() {
@@ -155,7 +160,7 @@ class App extends Component {
             <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
           <div>
-            <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} />
+            <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
             {this.renderError()}
             <Grid container spacing={8} justify="flex-start">
               <div>
