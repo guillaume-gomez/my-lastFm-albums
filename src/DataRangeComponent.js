@@ -27,9 +27,10 @@ class DataRangeComponent extends React.Component {
       fromDate: from,
       toDate: to
     };
-    this.updateQuery = this.updateQuery.bind(this);
+    this.updateDataRange = this.updateDataRange.bind(this);
     this.onChangeFrom = this.onChangeFrom.bind(this);
     this.onChangeTo = this.onChangeTo.bind(this);
+    this.convertDateToMilliseconds = this.convertDateToMilliseconds.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,22 +42,28 @@ class DataRangeComponent extends React.Component {
     }
   }
 
-  updateQuery() {
+  convertDateToMilliseconds(date) {
+    return moment(date).valueOf();
+  }
+
+  updateDataRange() {
     const { submitHandler, dateRange } = this.props;
     const { fromDate, toDate} = this.state;
-    submitHandler(fromDate, toDate);
+    submitHandler(this.convertDateToMilliseconds(fromDate), this.convertDateToMilliseconds(toDate));
   }
 
   onChangeFrom(e) {
     const { fromChange } = this.props;
-    this.setState({ fromDate: e.target.value})
-    fromChange(e.target.value);
+    const newDate = this.convertDateToMilliseconds(e.target.value);
+    this.setState({ fromDate: newDate})
+    fromChange(newDate);
   }
 
   onChangeTo(e) {
     const { toChange } = this.props;
-    this.setState({ toDate: e.target.value });
-    toChange(e.target.value)
+    const newDate = this.convertDateToMilliseconds(e.target.value);
+    this.setState({ toDate: newDate });
+    toChange(newDate);
   }
 
   render() {
@@ -87,7 +94,7 @@ class DataRangeComponent extends React.Component {
           InputLabelProps={{className: classes.textFieldDateLabel}}
           InputProps={{className: classes.textFieldDate}}
         />
-        <Button variant="extendedFab" aria-label="Delete" className={classes.button}>
+        <Button variant="extendedFab" aria-label="Submit" className={classes.button} onClick={this.updateDataRange}>
           <NavigationIcon className={classes.extendedIcon} />
           Update
         </Button>
