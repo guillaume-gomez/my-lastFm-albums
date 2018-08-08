@@ -1,5 +1,13 @@
 import { lastFmActions, userActions, albumInfosActions } from "../constants";
 
+export function lasfmQueryWeeksAlbum(user, weeks) {
+  return {
+    type: lastFmActions.FETCH_LAST_FM_WEEKS,
+    user,
+    weeks
+  };
+};
+
 export function lasfmQueryWeekAlbum(user, from = null, to = null) {
   return {
     type: lastFmActions.FETCH_LAST_FM,

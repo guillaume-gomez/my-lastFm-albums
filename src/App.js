@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { lasfmQueryWeekAlbum, fetchUser } from "./actions/lastFmActions";
+import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
 
 import MenuAppBar from "./MenuAppBar";
 import AlbumCard from "./AlbumCard";
@@ -65,6 +65,8 @@ class App extends Component {
 
   updateRangeDate(from, to) {
     console.log(from, "=>", to);
+    const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
+    
   }
 
   renderError() {
@@ -190,7 +192,8 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return ({
     lasfmQueryWeekAlbum: (user, from, to) => dispatch(lasfmQueryWeekAlbum(user, from, to)),
-    fetchUser: (user) => dispatch(fetchUser(user))
+    fetchUser: (user) => dispatch(fetchUser(user)),
+    lasfmQueryWeeksAlbum: (user, weeks) => dispatch(lasfmQueryWeeksAlbum(user, weeks))
   });
 };
 
