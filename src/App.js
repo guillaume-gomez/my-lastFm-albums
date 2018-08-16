@@ -65,8 +65,7 @@ class App extends Component {
 
   updateRangeDate(from, to) {
     console.log(from, "=>", to);
-    const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
-    
+    //const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
   }
 
   renderError() {

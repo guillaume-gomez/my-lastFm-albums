@@ -5,6 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
+/* eslint-disable */
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+// pick utils
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import DatePicker from 'material-ui-pickers/DatePicker';
+
+
 const styles = {
   textFieldDate: {
     color: "white"
@@ -30,7 +37,6 @@ class DataRangeComponent extends React.Component {
     this.updateDataRange = this.updateDataRange.bind(this);
     this.onChangeFrom = this.onChangeFrom.bind(this);
     this.onChangeTo = this.onChangeTo.bind(this);
-    this.convertDateToMilliseconds = this.convertDateToMilliseconds.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,28 +48,22 @@ class DataRangeComponent extends React.Component {
     }
   }
 
-  convertDateToMilliseconds(date) {
-    return moment(date).valueOf();
-  }
-
   updateDataRange() {
     const { submitHandler, dateRange } = this.props;
     const { fromDate, toDate} = this.state;
-    submitHandler(this.convertDateToMilliseconds(fromDate), this.convertDateToMilliseconds(toDate));
+    submitHandler(fromDate, toDate);
   }
 
-  onChangeFrom(e) {
+  onChangeFrom(fromDate) {
     const { fromChange } = this.props;
-    const newDate = this.convertDateToMilliseconds(e.target.value);
-    this.setState({ fromDate: newDate})
-    fromChange(newDate);
+    this.setState({ fromDate: fromDate.valueOf()})
+    fromChange(fromDate.valueOf());
   }
 
-  onChangeTo(e) {
+  onChangeTo(toDate) {
     const { toChange } = this.props;
-    const newDate = this.convertDateToMilliseconds(e.target.value);
-    this.setState({ toDate: newDate });
-    toChange(newDate);
+    this.setState({ toDate: toDate.valueOf() });
+    toChange(toDate.valueOf());
   }
 
   render() {
@@ -74,21 +74,22 @@ class DataRangeComponent extends React.Component {
     const formattedTo = moment(toDate).format("YYYY-MM-DD");
 
     return (
-      <React.Fragment>
-        <TextField
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <DatePicker
           color="white"
           id="date"
           label="from"
-          type="date"
           value={formattedFrom}
+          format={"YYYY-MM-DD"}
           onChange={this.onChangeFrom}
           InputLabelProps={{className: classes.textFieldDateLabel}}
           InputProps={{className: classes.textFieldDate}}
         />
-        <TextField
+        <DatePicker
+          color="white"
           id="date"
           label="to"
-          type="date"
+          format={"YYYY-MM-DD"}
           value={formattedTo}
           onChange={this.onChangeTo}
           InputLabelProps={{className: classes.textFieldDateLabel}}
@@ -98,7 +99,7 @@ class DataRangeComponent extends React.Component {
           <NavigationIcon className={classes.extendedIcon} />
           Update
         </Button>
-      </React.Fragment>
+      </MuiPickersUtilsProvider>
     );
   }
 }
