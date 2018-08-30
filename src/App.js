@@ -13,6 +13,8 @@ import TextField from '@material-ui/core/TextField';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import { splitToCreateRow } from './helperFunctions';
+
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
 
 import MenuAppBar from "./MenuAppBar";
@@ -31,7 +33,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
@@ -53,6 +55,7 @@ class App extends Component {
     this.updateFrom = this.updateFrom.bind(this);
     this.updateTo = this.updateTo.bind(this);
     this.updateRangeDate = this.updateRangeDate.bind(this);
+    this.formRow = this.formRow.bind(this);
   }
 
   updateFrom(newDate) {
@@ -110,6 +113,22 @@ class App extends Component {
     return { from: (from * 1000), to: (to * 1000) };
   }
 
+  formRow(rowItems) {
+    const { classes } = this.props;
+    return (
+      <React.Fragment>
+        {
+          rowItems.map((item, index) => (
+            <Grid item xs={3} key={index}>
+              <AlbumCard album={this.aggregateAlbumData(item)}/>
+            </Grid>
+          ))
+        }
+      </React.Fragment>
+    );
+  }
+
+
   renderData() {
     const { classes } = this.props;
     const { data } = this.props.lastFm;
@@ -123,27 +142,25 @@ class App extends Component {
 
     const chunks = data.map((chunk, i) => {
       const fromDate = moment(1000 * chunk.from);
-      const toDate = moment(1000 * chunk.to)
+      const toDate = moment(1000 * chunk.to);
+      const splittedArray = splitToCreateRow(chunk.payload, 4);
       return (
         <Paper key={i * chunk.from} className={classes.root} elevation={5}>
-          <Grid container alignItems="center">
+          <Grid container>
             <Grid item xs={12}>
               <Typography variant="headline" component="h4">
                 {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
               </Typography>
             </Grid>
-            <Grid container direction="row" alignItems="center">
-              {
-                chunk.payload.map((d, j) => (
-                    <Grid item xs={3} style={{padding: 10}} key={chunk.from * j} >
-                      <Grid container justify="center">
-                        <AlbumCard album={this.aggregateAlbumData(d)}/>
-                      </Grid>
-                    </Grid>
-                  )
-                )
-              }
-            </Grid>
+          </Grid>
+          <Grid container spacing={16} justify="center">
+            {
+              splittedArray.map( (rowItems, index) => (
+                <Grid item xs={12} container spacing={24} key={index}>
+                  {this.formRow(rowItems)}
+                </Grid>
+              ))
+            }
           </Grid>
         </Paper>
       );
@@ -163,18 +180,24 @@ class App extends Component {
           <div>
             <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
             {this.renderError()}
-            <Grid container spacing={8} justify="flex-start">
               <div>
                 <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.button} style={{margin: 20}}>
                   <AddIcon />
                 </Button>
               </div>
-              {this.renderData()}
-            </Grid>
+              <Grid container spacing={24} justify="center">
+                <Grid item xs={11} >
+                {this.renderData()}
+                </Grid>
+              </Grid>
           </div>
         </div>
-        <Footer className="App-footer">
-        </Footer>
+        <Grid container>
+          <Grid item xs={12}>
+            <Footer className="App-footer">
+            </Footer>
+          </Grid>
+        </Grid>
     </div>
     );
   }
