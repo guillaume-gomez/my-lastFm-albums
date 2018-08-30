@@ -11,9 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import cover from './default-release-cd.png';
 
 const styles = {
-  card: {
-    maxWidth: 300,
-  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
