@@ -31,12 +31,13 @@ const defaultUser = "musirama";
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    backgroundColor: theme.palette.background.paper
   },
   paper: {
     padding: theme.spacing.unit,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  },
+  }
 });
 
 
@@ -177,11 +178,11 @@ class App extends Component {
             <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
             <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
-          <div>
+          <Grid>
             <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
             {this.renderError()}
               <div>
-                <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.button} style={{margin: 20}}>
+                <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
                   <AddIcon />
                 </Button>
               </div>
@@ -190,7 +191,7 @@ class App extends Component {
                 {this.renderData()}
                 </Grid>
               </Grid>
-          </div>
+          </Grid>
         </div>
         <Grid container>
           <Grid item xs={12}>
