@@ -8,7 +8,7 @@ const api_key = process.env.REACT_APP_API_KEY;
 function* lastfmWeeksQuery({ user, weeks }) {
   const data = [];
   weeks.forEach(week => {
-    yield all(data.map(a => fork(lastfmQuery,{ user, from: weeks.from, to: weeks.to })))
+    yield* all(data.map(a => fork(lastfmQuery,{ user, from: weeks.from, to: weeks.to })))
   });
 }
 
@@ -16,4 +16,4 @@ function* watchLastFm() {
   yield takeEvery( lastFmActions.FETCH_LAST_FM_WEEKS, lastfmWeeksQuery);
 }
 
-export default watchLastFm;
+export default watchLastFmLoop;
