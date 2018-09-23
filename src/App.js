@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
@@ -69,7 +68,21 @@ class App extends Component {
 
   updateRangeDate(from, to) {
     console.log(from, "=>", to);
-    //const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
+
+    const startWeek = moment(from);
+    const endWeek = moment(to);
+    const nbWeeks = endWeek.diff(startWeek, 'weeks');
+    const weeks = [];
+    
+    let newTo = to / 1000;
+    let newFrom = from / 1000;
+    for(let i = 0; i < nbWeeks; i++) {
+      weeks.push({from: newFrom, to: newTo});
+      newTo = newFrom - 1;
+      newFrom = newTo - (7 * 60 * 60 * 24);
+    }
+    const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
+    lasfmQueryWeeksAlbum(defaultUser, weeks);
   }
 
   renderError() {
@@ -77,6 +90,11 @@ class App extends Component {
     if(error) {
       return <p style={{color: "red"}}>{error}</p>;
     }
+
+    if(this.props.albumsInfos.error) {
+      return <p style={{color: "red"}}>{this.props.albumsInfos.error}</p>;
+    }
+
     return null;
   }
 
@@ -99,6 +117,8 @@ class App extends Component {
     const { from } = lastChunk;
     const newTo = from - 1;
     const newFrom = newTo - (7 * 60 * 60 * 24);
+    console.log(newFrom)
+    console.log(newTo)
     lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
   }
 
@@ -146,7 +166,7 @@ class App extends Component {
       const toDate = moment(1000 * chunk.to);
       const splittedArray = splitToCreateRow(chunk.payload, 4);
       return (
-        <Paper key={i * chunk.from} className={classes.root} elevation={5}>
+        <React.Fragment key={i}>
           <Grid container>
             <Grid item xs={12}>
               <Typography variant="headline" component="h4">
@@ -163,7 +183,7 @@ class App extends Component {
               ))
             }
           </Grid>
-        </Paper>
+        </React.Fragment>
       );
     });
     return chunks;
