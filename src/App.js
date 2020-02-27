@@ -140,7 +140,7 @@ class App extends Component {
       <React.Fragment>
         {
           rowItems.map((item, index) => (
-            <Grid item xs={3} key={index}>
+            <Grid item sm={3} key={index} style={{ padding: "1rem" }}>
               <AlbumCard album={this.aggregateAlbumData(item)}/>
             </Grid>
           ))
@@ -167,17 +167,15 @@ class App extends Component {
       const splittedArray = splitToCreateRow(chunk.payload, 4);
       return (
         <React.Fragment key={i}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography variant="headline" component="h4">
-                {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
-              </Typography>
-            </Grid>
+          <Grid container item justify="center">
+            <Typography fullwidth variant="headline" component="h4">
+              {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
+            </Typography>
           </Grid>
-          <Grid container spacing={16} justify="center">
+          <Grid container item justify="center" style={{ padding: "1rem" }}>
             {
               splittedArray.map( (rowItems, index) => (
-                <Grid item xs={12} container spacing={24} key={index}>
+                <Grid item container sm={12} key={index} style={{ height: "30rem" }}>
                   {this.formRow(rowItems)}
                 </Grid>
               ))
@@ -206,10 +204,9 @@ class App extends Component {
                   <AddIcon />
                 </Button>
               </div>
-              <Grid container spacing={24} justify="center">
-                <Grid item xs={11} >
+
+              <Grid container justify="center" style={{ width: "100vw", padding: "0rem 10rem"}}>
                 {this.renderData()}
-                </Grid>
               </Grid>
           </Grid>
         </div>

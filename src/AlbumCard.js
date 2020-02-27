@@ -11,37 +11,32 @@ import Typography from '@material-ui/core/Typography';
 import cover from './default-release-cd.png';
 
 const styles = {
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
+   
 };
 
 function AlbumCard(props) {
   const { classes, album } = props;
   return (
-    <div>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
-            {album.artist["#text"]} - {album.name}
-          </Typography>
-          <Typography component="p">
-            Listen : {album.playcount}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" color="primary" href={album.url}>
-            Show on last fm
-          </Button>
-        </CardActions>
-      </Card>
-    </div>
+    <Card style={{ height: "100%" }}>
+      <CardMedia
+        style={{ height: "60%" }}
+        image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
+        title="Contemplative Reptile"
+      />
+      <CardContent style={{ height: "30%" }}>
+        <Typography gutterBottom variant="h2">
+          {album.artist["#text"]} - {album.name}
+        </Typography>
+        <Typography component="h5">
+          Listen : {album.playcount}
+        </Typography>
+      </CardContent>
+      <CardActions style={{ height: "10%", display:"flex", justifyItems: "flex-start", alignItems: "flex-end" }}>
+        <Button size="small" color="primary" href={album.url}>
+          Show on last fm
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 
