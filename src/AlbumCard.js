@@ -32,7 +32,7 @@ function AlbumCard(props) {
         </Typography>
       </CardContent>
       <CardActions style={{ height: "10%", display:"flex", justifyItems: "flex-start", alignItems: "flex-end" }}>
-        <Button size="small" color="primary" href={album.url}>
+        <Button size="small" color="primary" href={album.url} target="_blank">
           Show on last fm
         </Button>
       </CardActions>
