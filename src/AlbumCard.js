@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,12 +8,8 @@ import Typography from '@material-ui/core/Typography';
 
 import cover from './default-release-cd.png';
 
-const styles = {
-   
-};
-
 function AlbumCard(props) {
-  const { classes, album } = props;
+  const { album } = props;
   return (
     <Card style={{ height: "100%" }}>
       <CardMedia
@@ -40,8 +34,4 @@ function AlbumCard(props) {
   );
 }
 
-AlbumCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AlbumCard);
+export default React.memo(AlbumCard);
