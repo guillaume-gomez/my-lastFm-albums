@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from "moment";
-// import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -8,6 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -188,33 +191,35 @@ class App extends Component {
   render() {
     const { user, classes } = this.props;
     return (
-      <div className={classes.root}>
-        <div className="App">
+      <Grid>
+        <Grid item className="App">
           <header className="App-header">
             <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
             <h1 className="App-title animated bounce delay-10s">My albums list</h1>
           </header>
           <Grid>
-            <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+              <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+            </MuiPickersUtilsProvider>
             {this.renderError()}
-              <div>
+              <Grid item>
                 <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
                   <AddIcon />
                 </Button>
-              </div>
+              </Grid>
 
               <Grid container justify="center" style={{ width: "100vw", padding: "0rem 10rem"}}>
                 {this.renderData()}
               </Grid>
           </Grid>
-        </div>
+        </Grid>
         <Grid container>
           <Grid item xs={12}>
             <Footer className="App-footer">
             </Footer>
           </Grid>
         </Grid>
-    </div>
+    </Grid>
     );
   }
 };
