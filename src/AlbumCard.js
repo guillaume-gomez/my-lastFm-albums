@@ -18,7 +18,7 @@ function AlbumCard(props) {
         title="Contemplative Reptile"
       />
       <CardContent style={{ height: "30%" }}>
-        <Typography gutterBottom variant="h2">
+        <Typography gutterBottom variant="h5">
           {album.artist["#text"]} - {album.name}
         </Typography>
         <Typography component="h5">
