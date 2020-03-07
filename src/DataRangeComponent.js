@@ -1,15 +1,7 @@
 import React from 'react';
 import moment from "moment";
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import NavigationIcon from '@material-ui/icons/Navigation';
-
-/* eslint-disable */
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-// pick utils
-import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-import DatePicker from 'material-ui-pickers/DatePicker';
-
+import { DatePicker } from "@material-ui/pickers";
 
 const styles = {
   textFieldDate: {
@@ -48,7 +40,7 @@ class DataRangeComponent extends React.Component {
   }
 
   updateDataRange() {
-    const { submitHandler, dateRange } = this.props;
+    const { submitHandler } = this.props;
     const { fromDate, toDate} = this.state;
     submitHandler(fromDate, toDate);
   }
@@ -73,32 +65,29 @@ class DataRangeComponent extends React.Component {
     const formattedTo = moment(toDate).format("YYYY-MM-DD");
 
     return (
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+      <div>
         <DatePicker
-          color="white"
-          id="date"
-          label="from"
-          value={formattedFrom}
-          format={"YYYY-MM-DD"}
-          onChange={this.onChangeFrom}
-          InputLabelProps={{className: classes.textFieldDateLabel}}
-          InputProps={{className: classes.textFieldDate}}
+            color="white"
+            id="date"
+            label="from"
+            format={"YYYY-MM-DD"}
+            value={formattedFrom}
+            InputLabelProps={{className: classes.textFieldDateLabel}}
+            InputProps={{className: classes.textFieldDate}}
+            animateYearScrolling
         />
         <DatePicker
-          color="white"
-          id="date"
-          label="to"
-          format={"YYYY-MM-DD"}
-          value={formattedTo}
-          onChange={this.onChangeTo}
-          InputLabelProps={{className: classes.textFieldDateLabel}}
-          InputProps={{className: classes.textFieldDate}}
+            color="white"
+            id="date"
+            label="to"
+            format={"YYYY-MM-DD"}
+            value={formattedTo}
+            onChange={this.onChangeTo}
+            InputLabelProps={{className: classes.textFieldDateLabel}}
+            InputProps={{className: classes.textFieldDate}}
+            animateYearScrolling
         />
-        <Button variant="extendedFab" aria-label="Submit" className={classes.button} onClick={this.updateDataRange}>
-          <NavigationIcon className={classes.extendedIcon} />
-          Update
-        </Button>
-      </MuiPickersUtilsProvider>
+      </div>
     );
   }
 }
