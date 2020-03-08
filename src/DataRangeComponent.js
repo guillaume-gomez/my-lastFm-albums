@@ -30,13 +30,15 @@ class DataRangeComponent extends React.Component {
     this.onChangeTo = this.onChangeTo.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dateRange } = this.props;
-    const { from, to } = dateRange;
-
-    if(from !== nextProps.dateRange.from || to !== nextProps.dateRange.to) {
-      this.setState({fromDate: nextProps.dateRange.from, toDate: nextProps.dateRange.to})
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { dateRange } = prevState;
+    if(dateRange) {
+      const { from, to } = dateRange;
+      if(from !== nextProps.dateRange.from || to !== nextProps.dateRange.to) {
+        this.setState({fromDate: nextProps.dateRange.from, toDate: nextProps.dateRange.to})
+      }
     }
+    return null;
   }
 
   updateDataRange() {
