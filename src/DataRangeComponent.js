@@ -67,7 +67,7 @@ class DataRangeComponent extends React.Component {
     return (
       <div>
         <DatePicker
-            color="white"
+            color="primary"
             id="date"
             label="from"
             format={"YYYY-MM-DD"}
@@ -77,7 +77,7 @@ class DataRangeComponent extends React.Component {
             animateYearScrolling
         />
         <DatePicker
-            color="white"
+            color="primary"
             id="date"
             label="to"
             format={"YYYY-MM-DD"}

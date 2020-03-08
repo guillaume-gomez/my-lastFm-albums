@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +32,7 @@ class MenuAppBar extends React.Component {
       return null;
     }
     return (
-      <Typography variant="headline" component="p" style={{color: "white"}}>
+      <Typography variant="inherit" style={{color: "white", border: "2px solid blue"}}>
         Hello <b>{user.user.name}</b>
       </Typography>
     );
@@ -39,13 +41,13 @@ class MenuAppBar extends React.Component {
   render() {
     const { classes, user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
+      <Grid style={{ border: "2px solid orange" }}>
+        <AppBar position="static" style={{ border: "2px solid red" }}>
           <Toolbar>
             <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="body1" color="inherit" className={classes.flex}>
               {this.helloMessage()}
             </Typography>
             {user && (
@@ -55,7 +57,7 @@ class MenuAppBar extends React.Component {
             )}
           </Toolbar>
         </AppBar>
-      </div>
+      </Grid>
     );
   }
 }

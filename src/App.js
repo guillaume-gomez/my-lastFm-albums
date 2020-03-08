@@ -35,7 +35,6 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   paper: {
-    padding: theme.spacing.unit,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }
@@ -169,7 +168,7 @@ class App extends Component {
       return (
         <React.Fragment key={i}>
           <Grid container item justify="center">
-            <Typography fullwidth variant="headline" component="h4">
+            <Typography variant="h6" component="h4">
               {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
             </Typography>
           </Grid>

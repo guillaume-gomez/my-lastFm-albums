@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import cover from './default-release-cd.png';
 
-function AlbumCard(props) {
-  const { album } = props;
+function AlbumCard({album}) {
   return (
     <Card style={{ height: "100%" }}>
       <CardMedia
