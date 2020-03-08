@@ -189,7 +189,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, classes } = this.props;
+    const { user } = this.props;
     return (
       <Grid>
         <Grid item className="App">
@@ -203,7 +203,7 @@ class App extends Component {
             </MuiPickersUtilsProvider>
             {this.renderError()}
               <Grid item>
-                <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
+                <Button onClick={this.appendData} variant="outlined" size="medium" color="primary" style={{margin: 20}}>
                   <AddIcon />
                 </Button>
               </Grid>
