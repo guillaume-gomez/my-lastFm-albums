@@ -9,12 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import cover from './default-release-cd.png';
 
 function AlbumCard({album}) {
+  if(album.name === "The Money Store")
+    console.log(album.name)
+
   return (
-    <Card style={{ height: "100%" }}>
+    <Card style={{ height: "100%", border: "2px solid violet", width: "100%"}}>
       <CardMedia
-        style={{ height: "60%" }}
+        style={{ height: "60%"}}
         image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
-        title="Contemplative Reptile"
+        title={album.name}
       />
       <CardContent style={{ height: "30%" }}>
         <Typography gutterBottom variant="h5">
@@ -33,4 +36,10 @@ function AlbumCard({album}) {
   );
 }
 
-export default React.memo(AlbumCard);
+function areEqual(prevProps, nextProps) {
+  
+  const result = prevProps.album.cover && nextProps.album.cover && prevProps.album.cover["#text"] === nextProps.album.cover["#text"]
+  return result;
+}
+
+export default React.memo(AlbumCard, areEqual);
