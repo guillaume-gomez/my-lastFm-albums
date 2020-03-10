@@ -12,52 +12,46 @@ import DataRangeComponent from "./DataRangeComponent";
 import ImageAvatars from "./ImageAvatars";
 
 const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  }
 };
 
 class MenuAppBar extends React.Component {
 
-  helloMessage = () => {
+  helloUser = () => {
     const { user } = this.props;
     if(!user.user) {
       return null;
     }
     return (
-      <Typography variant="inherit" style={{color: "white", border: "2px solid blue"}}>
-        Hello <b>{user.user.name}</b>
+      <Typography variant="inherit" style={{ color: "white" }}>
+        <b>{user.user.name}</b>
       </Typography>
     );
   }
 
   render() {
-    const { classes, user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
+    const { user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
     return (
-      <Grid style={{ border: "2px solid orange" }}>
-        <AppBar position="static" style={{ border: "2px solid red" }}>
+        <AppBar position="static">
           <Toolbar>
-            <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            </IconButton>
-            <Typography variant="body1" color="inherit" className={classes.flex}>
-              {this.helloMessage()}
-            </Typography>
-            {user && (
-              <div>
-                <ImageAvatars user={user}/>
-              </div>
-            )}
+            <Grid item style={{ width: "25%" }}>
+              <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
+            </Grid>
+            <Grid item style={{ width: "65%"}}>
+              <IconButton  color="inherit" aria-label="Menu">
+              </IconButton>
+            </Grid>
+            <Grid item style={{ width: "10%"}}>
+              {user && (
+                <div>
+                  <ImageAvatars user={user}/>
+                </div>
+              )}
+              <Typography variant="body1" color="inherit">
+                {this.helloUser()}
+              </Typography>
+            </Grid>
           </Toolbar>
         </AppBar>
-      </Grid>
     );
   }
 }
