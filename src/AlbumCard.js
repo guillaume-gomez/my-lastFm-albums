@@ -13,7 +13,7 @@ function AlbumCard({album}) {
     console.log(album.name)
 
   return (
-    <Card style={{ height: "100%", border: "2px solid violet", width: "100%"}}>
+    <Card style={{ height: "100%", width: "100%"}}>
       <CardMedia
         style={{ height: "60%"}}
         image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
