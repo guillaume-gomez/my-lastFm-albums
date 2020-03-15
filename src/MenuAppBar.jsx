@@ -14,27 +14,23 @@ import UserActions from "./UserActions";
 const styles = {
 };
 
-class MenuAppBar extends React.Component {
-
-  render() {
-    const { user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
-    return (
-        <AppBar position="static">
-          <Toolbar>
-            <Grid item style={{ width: "25%" }}>
-              <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
-            </Grid>
-            <Grid item style={{ width: "65%"}}>
-              <IconButton  color="inherit" aria-label="Menu">
-              </IconButton>
-            </Grid>
-            <Grid item style={{ width: "10%"}}>
-              <UserActions user={user} />
-            </Grid>
-          </Toolbar>
-        </AppBar>
-    );
-  }
+function MenuAppBar({ user, dateRange, fromChange, toChange, updateRangeDate }) {
+  return (
+      <AppBar position="static">
+        <Toolbar>
+          <Grid item style={{ width: "25%" }}>
+            <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
+          </Grid>
+          <Grid item style={{ width: "65%"}}>
+            <IconButton  color="inherit" aria-label="Menu">
+            </IconButton>
+          </Grid>
+          <Grid item style={{ width: "10%"}}>
+            <UserActions user={user} />
+          </Grid>
+        </Toolbar>
+      </AppBar>
+  );
 }
 
 MenuAppBar.propTypes = {

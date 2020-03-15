@@ -1,7 +1,6 @@
 import React from "react";
 
-function Footer({ ...props }) {
-  const { className } = props;
+function Footer({ className }) {
   return (
     <footer className={className}>
       <p>
