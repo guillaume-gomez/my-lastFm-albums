@@ -9,9 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import cover from './default-release-cd.png';
 
 function AlbumCard({album}) {
-  if(album.name === "The Money Store")
-    console.log(album.name)
-
   return (
     <Card style={{ height: "100%", width: "100%"}}>
       <CardMedia
@@ -37,9 +34,11 @@ function AlbumCard({album}) {
 }
 
 function areEqual(prevProps, nextProps) {
-  
-  const result = prevProps.album.cover && nextProps.album.cover && prevProps.album.cover["#text"] === nextProps.album.cover["#text"]
-  return result;
+  if(prevProps.album.mbid !== nextProps.album.mbid || prevProps.album.cover !== nextProps.album.cover) {
+    return false;
+  }
+
+  return true;
 }
 
 export default React.memo(AlbumCard, areEqual);
