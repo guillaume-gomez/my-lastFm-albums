@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import moment from "moment";
+import React, { Component, useEffect } from 'react';
+import { format, differenceInWeeks } from 'date-fns';
 import { connect } from 'react-redux';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -41,38 +41,35 @@ const styles = theme => ({
 });
 
 
-class App extends Component {
+function App(props) {
 
-  constructor(props) {
-    super(props);
-    this.props.lasfmQueryWeekAlbum(defaultUser);
-    this.props.fetchUser(defaultUser);
+  useEffect( () => {
+    props.lasfmQueryWeekAlbum(defaultUser);
+    props.fetchUser(defaultUser);
+  }, []);
 
-    this.renderError = this.renderError.bind(this);
-    this.renderData = this.renderData.bind(this);
-    this.appendData = this.appendData.bind(this);
-    this.aggregateAlbumData = this.aggregateAlbumData.bind(this);
-    this.getDateRange = this.getDateRange.bind(this);
-    this.updateFrom = this.updateFrom.bind(this);
-    this.updateTo = this.updateTo.bind(this);
-    this.updateRangeDate = this.updateRangeDate.bind(this);
-    this.formRow = this.formRow.bind(this);
-  }
+  // todo 
+  // const memoizedCallback = useCallback(
+  //   () => {
+  //     aggregateAlbumData(data);
+  //   },
+  //   [props.data],
+  // );
 
-  updateFrom(newDate) {
+  function updateFrom(newDate) {
     console.log(newDate)
   }
 
-  updateTo(newDate) {
+  function updateTo(newDate) {
     console.log(newDate)
   }
 
-  updateRangeDate(from, to) {
+  function updateRangeDate(from, to) {
     console.log(from, "=>", to);
 
-    const startWeek = moment(from);
-    const endWeek = moment(to);
-    const nbWeeks = endWeek.diff(startWeek, 'weeks');
+    const startWeek = new Date(from);
+    const endWeek = new Date(to);
+    const nbWeeks = differenceInWeeks(startWeek, endWeek);
     const weeks = [];
     
     let newTo = to / 1000;
@@ -82,25 +79,25 @@ class App extends Component {
       newTo = newFrom - 1;
       newFrom = newTo - (7 * 60 * 60 * 24);
     }
-    const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = this.props;
+    const { lasfmQueryWeeksAlbum, lasfmQueryWeekAlbum } = props;
     lasfmQueryWeeksAlbum(defaultUser, weeks);
   }
 
-  renderError() {
-    const { error } = this.props.lastFm;
+  function renderError() {
+    const { error } = props.lastFm;
     if(error) {
       return <p style={{color: "red"}}>{error}</p>;
     }
 
-    if(this.props.albumsInfos.error) {
-      return <p style={{color: "red"}}>{this.props.albumsInfos.error}</p>;
+    if(props.albumsInfos.error) {
+      return <p style={{color: "red"}}>{props.albumsInfos.error}</p>;
     }
 
     return null;
   }
 
-  aggregateAlbumData(albumFromStore) {
-    const { albumsInfos } = this.props;
+  function aggregateAlbumData(albumFromStore) {
+    const { albumsInfos } = props;
     const { albums } = albumsInfos;
     if(!albums || albums.length === 0) {
       return albumFromStore;
@@ -112,19 +109,17 @@ class App extends Component {
     return Object.assign({}, albumFromStore, { cover: albumData.image[3] });
   }
 
-  appendData() {
-    const { lasfmQueryWeekAlbum, lastFm } = this.props;
+  function appendData() {
+    const { lasfmQueryWeekAlbum, lastFm } = props;
     const lastChunk = lastFm.data[lastFm.data.length - 1];
     const { from } = lastChunk;
     const newTo = from - 1;
     const newFrom = newTo - (7 * 60 * 60 * 24);
-    console.log(newFrom)
-    console.log(newTo)
     lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
   }
 
-  getDateRange() {
-    const { lastFm } = this.props;
+  function getDateRange() {
+    const { lastFm } = props;
     if(lastFm.data.length === 0) {
       return { from: null, to: null};
     }
@@ -135,13 +130,13 @@ class App extends Component {
     return { from: (from * 1000), to: (to * 1000) };
   }
 
-  formRow(rowItems) {
+  function formRow(rowItems) {
     return (
       <React.Fragment>
         {
           rowItems.map((item, index) => (
             <Grid item sm={3} key={index} style={{ padding: "1rem" }}>
-              <AlbumCard album={this.aggregateAlbumData(item)}/>
+              <AlbumCard album={aggregateAlbumData(item)}/>
             </Grid>
           ))
         }
@@ -150,9 +145,9 @@ class App extends Component {
   }
 
 
-  renderData() {
-    const { classes } = this.props;
-    const { data } = this.props.lastFm;
+  function renderData() {
+    const { classes } = props;
+    const { data } = props.lastFm;
     if(!data || data.length === 0) {
       return (
         <Grid container justify="center" alignItems="center">
@@ -160,23 +155,21 @@ class App extends Component {
         </Grid>
       );
     }
-
     const chunks = data.map((chunk, i) => {
-      const fromDate = moment(1000 * chunk.from);
-      const toDate = moment(1000 * chunk.to);
-      const splittedArray = splitToCreateRow(chunk.payload, 4);
+      const fromDate = new Date(1000 * chunk.from);
+      const toDate = new Date(1000 * chunk.to);
       return (
         <React.Fragment key={i}>
           <Grid container item justify="center">
             <Typography variant="h6" component="h4">
-              {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
+              {format(fromDate, "yyyy/MM/dd")} - {format(toDate, "yyyy/MM/dd")}
             </Typography>
           </Grid>
-          <Grid container item justify="center" style={{ padding: "1rem" }}>
+          <Grid container item justify="center" style={{ padding: "1rem", border: "2px solid red" }}>
             {
-              splittedArray.map( (rowItems, index) => (
-                <Grid item container sm={12} key={index} style={{ height: "30rem" }}>
-                  {this.formRow(rowItems)}
+              chunk.payload.map( (item, index) => (
+                <Grid item container key={index} style={{ height: "30rem", width: "25%", padding: "1rem", border: "2px solid green" }}>
+                  <AlbumCard album={aggregateAlbumData(item)}/>
                 </Grid>
               ))
             }
@@ -187,40 +180,38 @@ class App extends Component {
     return chunks;
   }
 
-  render() {
-    const { user } = this.props;
-    return (
-      <Grid>
-        <Grid item className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
-            <h1 className="App-title animated bounce delay-10s">My albums list</h1>
-          </header>
-          <Grid>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
-            </MuiPickersUtilsProvider>
-            {this.renderError()}
-              <Grid item>
-                <Button onClick={this.appendData} variant="outlined" size="medium" color="primary" style={{margin: 20}}>
-                  <AddIcon />
-                </Button>
-              </Grid>
+  const { user } = props;
+  return (
+    <Grid>
+      <Grid item className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
+          <h1 className="App-title animated bounce delay-10s">My albums list</h1>
+        </header>
+        <Grid>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <MenuAppBar user={user} dateRange={getDateRange()} fromChange={updateFrom} toChange={updateTo} updateRangeDate={updateRangeDate} />
+          </MuiPickersUtilsProvider>
+          {renderError()}
+            <Grid item>
+              <Button onClick={appendData} variant="outlined" size="medium" color="primary" style={{margin: 20}}>
+                <AddIcon />
+              </Button>
+            </Grid>
 
-              <Grid container justify="center" style={{ width: "100vw", padding: "0rem 10rem"}}>
-                {this.renderData()}
-              </Grid>
-          </Grid>
+            <Grid container justify="center" style={{ width: "100vw", padding: "0rem 10rem"}}>
+              {renderData()}
+            </Grid>
         </Grid>
-        <Grid container>
-          <Grid item xs={12}>
-            <Footer className="App-footer">
-            </Footer>
-          </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xs={12}>
+          <Footer className="App-footer">
+          </Footer>
         </Grid>
-    </Grid>
-    );
-  }
+      </Grid>
+  </Grid>
+  );
 };
 
 const mapStateToProps = (store) => {
@@ -239,5 +230,5 @@ const mapDispatchToProps = (dispatch) => {
   });
 };
 
-const styledComponent =  withStyles(styles)(App);
+const styledComponent = withStyles(styles)(App);
 export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);

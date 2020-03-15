@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from "moment";
+import { format, differenceInWeeks } from 'date-fns';
 import { withStyles } from '@material-ui/core/styles';
 import { DatePicker } from "@material-ui/pickers";
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   textFieldDate: {
@@ -22,29 +24,19 @@ class DataRangeComponent extends React.Component {
     const { from, to } = dateRange;
 
     this.state = {
-      fromDate: from,
-      toDate: to
+      fromDate: new Date(from),
+      toDate: new Date(to)
     };
-    this.updateDataRange = this.updateDataRange.bind(this);
     this.onChangeFrom = this.onChangeFrom.bind(this);
     this.onChangeTo = this.onChangeTo.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { dateRange } = prevState;
-    if(dateRange) {
-      const { from, to } = dateRange;
-      if(from !== nextProps.dateRange.from || to !== nextProps.dateRange.to) {
-        this.setState({fromDate: nextProps.dateRange.from, toDate: nextProps.dateRange.to})
-      }
+    const { from, to } = prevState;
+    if(from !== nextProps.dateRange.from || to !== nextProps.dateRange.to) {
+      return ({ fromDate: new Date(nextProps.dateRange.from), toDate: new Date(nextProps.dateRange.to) });
     }
     return null;
-  }
-
-  updateDataRange() {
-    const { submitHandler } = this.props;
-    const { fromDate, toDate} = this.state;
-    submitHandler(fromDate, toDate);
   }
 
   onChangeFrom(fromDate) {
@@ -63,17 +55,15 @@ class DataRangeComponent extends React.Component {
     const { classes } = this.props;
     const { fromDate, toDate } = this.state;
 
-    const formattedFrom = moment(fromDate).format("YYYY-MM-DD");
-    const formattedTo = moment(toDate).format("YYYY-MM-DD");
-
     return (
-      <div>
+      <Grid container item justify="space-between">
         <DatePicker
             color="primary"
             id="date"
             label="from"
             format={"YYYY-MM-DD"}
-            value={formattedFrom}
+            value={fromDate}
+            onChange={this.onChangeFrom}
             InputLabelProps={{className: classes.textFieldDateLabel}}
             InputProps={{className: classes.textFieldDate}}
             animateYearScrolling
@@ -83,13 +73,13 @@ class DataRangeComponent extends React.Component {
             id="date"
             label="to"
             format={"YYYY-MM-DD"}
-            value={formattedTo}
+            value={toDate}
             onChange={this.onChangeTo}
             InputLabelProps={{className: classes.textFieldDateLabel}}
             InputProps={{className: classes.textFieldDate}}
             animateYearScrolling
         />
-      </div>
+      </Grid>
     );
   }
 }
