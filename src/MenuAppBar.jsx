@@ -9,24 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import DataRangeComponent from "./DataRangeComponent";
-import ImageAvatars from "./ImageAvatars";
+import UserActions from "./UserActions";
 
 const styles = {
 };
 
 class MenuAppBar extends React.Component {
-
-  helloUser = () => {
-    const { user } = this.props;
-    if(!user.user) {
-      return null;
-    }
-    return (
-      <Typography variant="inherit" style={{ color: "white" }}>
-        <b>{user.user.name}</b>
-      </Typography>
-    );
-  }
 
   render() {
     const { user, dateRange, fromChange, toChange, updateRangeDate } = this.props;
@@ -41,14 +29,7 @@ class MenuAppBar extends React.Component {
               </IconButton>
             </Grid>
             <Grid item style={{ width: "10%"}}>
-              {user && (
-                <div>
-                  <ImageAvatars user={user}/>
-                </div>
-              )}
-              <Typography variant="body1" color="inherit">
-                {this.helloUser()}
-              </Typography>
+              <UserActions user={user} />
             </Grid>
           </Toolbar>
         </AppBar>
