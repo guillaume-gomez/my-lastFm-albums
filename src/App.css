@@ -13,8 +13,6 @@ ul{
 
 .App-header {
   background-color: #222;
-  height: 80px;
-  padding: 20px;
   color: white;
 }
 
@@ -31,6 +29,10 @@ ul{
 
 .App-title {
   font-size: 1em;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .App-intro {

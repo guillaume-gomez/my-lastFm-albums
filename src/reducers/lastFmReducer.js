@@ -11,9 +11,7 @@ export default function(state = initialState, action) {
     case lastFmActions.FETCH_LAST_FM_SUCCESS:
       const { from, to, payload} = action;
       const newChunk = { payload, from, to};
-      const data = state.data.slice();
-      data.push(newChunk);
-      return { data, error: null }
+      return { data: [...state.data, newChunk], error: null }
     case lastFmActions.FETCH_LAST_FM_ERRORS:
       return Object.assign({}, state, { error: action.message });
     default:
