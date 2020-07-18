@@ -17,8 +17,7 @@ const styles = {
   },
 };
 
-function AlbumCard(props) {
-  const { classes, album } = props;
+function AlbumCard({classes, album}) {
   return (
     <div>
       <Card className={classes.card}>
