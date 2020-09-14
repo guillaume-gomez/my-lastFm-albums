@@ -5,10 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
 /* eslint-disable */
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 // pick utils
-import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import MomentUtils from '@date-io/moment';
 
 
 const styles = {

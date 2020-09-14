@@ -13,7 +13,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import ImageAvatars from "./ImageAvatars";
 
-function UserActions({ user, onChangeUser }) {
+function UserActions({user, onChangeUser }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const anchorRef = useRef(null);
