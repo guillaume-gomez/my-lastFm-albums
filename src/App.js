@@ -12,8 +12,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { splitToCreateRow } from './helperFunctions';
-
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
 
 import MenuAppBar from "./MenuAppBar";
@@ -55,7 +53,6 @@ class App extends Component {
     this.updateFrom = this.updateFrom.bind(this);
     this.updateTo = this.updateTo.bind(this);
     this.updateRangeDate = this.updateRangeDate.bind(this);
-    this.formRow = this.formRow.bind(this);
   }
 
   updateFrom(newDate) {
@@ -132,27 +129,12 @@ class App extends Component {
     return { from: (from * 1000), to: (to * 1000) };
   }
 
-  formRow(rowItems) {
-    return (
-      <React.Fragment>
-        {
-          rowItems.map((item, index) => (
-            <Grid item xs={3} key={index}>
-              <AlbumCard album={this.aggregateAlbumData(item)}/>
-            </Grid>
-          ))
-        }
-      </React.Fragment>
-    );
-  }
-
-
   renderData() {
     const { classes } = this.props;
     const { data } = this.props.lastFm;
     if(!data || data.length === 0) {
       return (
-        <Grid container justify="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center">
           <CircularProgress className={classes.progress} size={50} style={{padding: 40}} />
         </Grid>
       );
@@ -161,23 +143,25 @@ class App extends Component {
     const chunks = data.map((chunk, i) => {
       const fromDate = moment(1000 * chunk.from);
       const toDate = moment(1000 * chunk.to);
-      const splittedArray = splitToCreateRow(chunk.payload, 4);
       return (
         <React.Fragment key={i}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography variant="headline" component="h4">
-                {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
-              </Typography>
-            </Grid>
+          <Grid container justifyContent="center" alignItems="center" direction="column" padding="3rem">
+            <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
+              <AddIcon />
+            </Button>
+            <Typography variant="headline" component="h4">
+              {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
+            </Typography>
           </Grid>
-          <Grid container spacing={16} justify="center">
+          <Grid container spacing={4} justifyContent="center">
             {
-              splittedArray.map( (rowItems, index) => (
-                <Grid item xs={12} container spacing={24} key={index}>
-                  {this.formRow(rowItems)}
-                </Grid>
-              ))
+              chunk.payload.map((item, index) => {
+                return (
+                  <Grid item xs={3} xl={2} style={{height: "100%"}}>
+                    <AlbumCard key={index} album={this.aggregateAlbumData(item)}/>
+                  </Grid>
+                );
+              })
             }
           </Grid>
         </React.Fragment>
@@ -190,22 +174,15 @@ class App extends Component {
     const { user, classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid className="App-header" container direction="column" justifyItems="center" alignItems="center">
+        <Grid className="App-header" container direction="column" justifyContent="center" alignItems="center">
           <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
           <h1 className="App-title animated bounce delay-10s">My albums list</h1>
         </Grid>
-        <Grid>
-          <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+        <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+        <Container maxWidth="xl">
           {this.renderError()}
-            <div>
-              <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
-                <AddIcon />
-              </Button>
-            </div>
-            <Container maxWidth="xl">
-              {this.renderData()}
-            </Container>
-        </Grid>
+          {this.renderData()}
+        </Container>
         <Grid container>
           <Grid item xs={12}>
             <Footer className="App-footer">
