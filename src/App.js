@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -116,8 +117,6 @@ class App extends Component {
     const { from } = lastChunk;
     const newTo = from - 1;
     const newFrom = newTo - (7 * 60 * 60 * 24);
-    console.log(newFrom)
-    console.log(newTo)
     lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);
   }
 
@@ -191,26 +190,22 @@ class App extends Component {
     const { user, classes } = this.props;
     return (
       <div className={classes.root}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
-            <h1 className="App-title animated bounce delay-10s">My albums list</h1>
-          </header>
-          <Grid>
-            <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
-            {this.renderError()}
-              <div>
-                <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
-                  <AddIcon />
-                </Button>
-              </div>
-              <Grid container spacing={24} justify="center">
-                <Grid item xs={11} >
-                {this.renderData()}
-                </Grid>
-              </Grid>
-          </Grid>
-        </div>
+        <Grid className="App-header" container direction="column" justifyItems="center" alignItems="center">
+          <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
+          <h1 className="App-title animated bounce delay-10s">My albums list</h1>
+        </Grid>
+        <Grid>
+          <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+          {this.renderError()}
+            <div>
+              <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
+                <AddIcon />
+              </Button>
+            </div>
+            <Container maxWidth="xl">
+              {this.renderData()}
+            </Container>
+        </Grid>
         <Grid container>
           <Grid item xs={12}>
             <Footer className="App-footer">

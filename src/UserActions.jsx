@@ -10,6 +10,7 @@ import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ImageAvatars from "./ImageAvatars";
 
@@ -18,9 +19,9 @@ function UserActions({user, onChangeUser }) {
   const [search, setSearch] = useState("");
   const anchorRef = useRef(null);
 
-  function helloUser() {
+  function renderUserInfo() {
     if(!user.user) {
-      return null;
+      return <CircularProgress />;
     }
     return (
       <span>
@@ -61,7 +62,7 @@ function UserActions({user, onChangeUser }) {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        {helloUser()}
+        {renderUserInfo()}
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} placement="bottom-end" role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (

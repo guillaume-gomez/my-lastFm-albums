@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 
 import DataRangeComponent from "./DataRangeComponent";
 import UserActions from "./UserActions";
@@ -17,15 +16,13 @@ function MenuAppBar({ user, dateRange, fromChange, toChange, updateRangeDate }) 
   return (
       <AppBar position="static">
         <Toolbar>
-          <Grid item style={{ width: "25%" }}>
-            <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
-          </Grid>
-          <Grid item style={{ width: "65%"}}>
-            <IconButton  color="inherit" aria-label="Menu">
-            </IconButton>
-          </Grid>
-          <Grid item style={{ width: "10%"}}>
-            <UserActions user={user} />
+          <Grid container direction="row" alignItems="center" justifyContent="space-between">
+            <Grid item>
+              <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
+            </Grid>
+            <Grid item>
+              <UserActions user={user} />
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>

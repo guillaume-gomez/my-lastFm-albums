@@ -3,6 +3,8 @@ import moment from "moment";
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 /* eslint-disable */
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
@@ -72,32 +74,42 @@ class DataRangeComponent extends React.Component {
     const formattedTo = moment(toDate).format("YYYY-MM-DD");
 
     return (
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <DatePicker
-          color="white"
-          id="date"
-          label="from"
-          value={formattedFrom}
-          format={"YYYY-MM-DD"}
-          onChange={this.onChangeFrom}
-          InputLabelProps={{className: classes.textFieldDateLabel}}
-          InputProps={{className: classes.textFieldDate}}
-        />
-        <DatePicker
-          color="white"
-          id="date"
-          label="to"
-          format={"YYYY-MM-DD"}
-          value={formattedTo}
-          onChange={this.onChangeTo}
-          InputLabelProps={{className: classes.textFieldDateLabel}}
-          InputProps={{className: classes.textFieldDate}}
-        />
-        <Button variant="extendedFab" aria-label="Submit" className={classes.button} onClick={this.updateDataRange}>
-          <NavigationIcon className={classes.extendedIcon} />
-          Update
-        </Button>
-      </MuiPickersUtilsProvider>
+      <Box border="2px solid white" borderRadius="6px" padding="0.5rem">
+        <Grid container item spacing={3} justify="space-between" alignItems="center">
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Grid item>
+              <DatePicker
+                color="white"
+                id="date"
+                label="from"
+                value={formattedFrom}
+                format={"YYYY-MM-DD"}
+                onChange={this.onChangeFrom}
+                InputLabelProps={{className: classes.textFieldDateLabel}}
+                InputProps={{className: classes.textFieldDate}}
+              />
+            </Grid>
+            <Grid item>
+              <DatePicker
+                color="white"
+                id="date"
+                label="to"
+                format={"YYYY-MM-DD"}
+                value={formattedTo}
+                onChange={this.onChangeTo}
+                InputLabelProps={{className: classes.textFieldDateLabel}}
+                InputProps={{className: classes.textFieldDate}}
+              />
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary" aria-label="Submit" onClick={this.updateDataRange}>
+                <NavigationIcon className={classes.extendedIcon} />
+                Update
+              </Button>
+             </Grid>
+          </MuiPickersUtilsProvider>
+        </Grid>
+      </Box>
     );
   }
 }
