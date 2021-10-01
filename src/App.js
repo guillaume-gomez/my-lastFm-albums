@@ -146,7 +146,7 @@ class App extends Component {
       return (
         <React.Fragment key={i}>
           <Grid container justifyContent="center" alignItems="center" direction="column" padding="3rem">
-            <Button onClick={this.appendData} variant="fab" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
+            <Button onClick={this.appendData} variant="outlined" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
               <AddIcon />
             </Button>
             <Typography variant="headline" component="h4">
