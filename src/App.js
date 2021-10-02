@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -149,9 +150,11 @@ class App extends Component {
             <Button onClick={this.appendData} variant="outlined" color="primary" aria-label="Add" className={classes.fab} style={{margin: 20}}>
               <AddIcon />
             </Button>
-            <Typography variant="headline" component="h4">
-              {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
-            </Typography>
+            <Box padding="1rem">
+              <Typography variant="headline" component="h4">
+                {fromDate.format("DD/MM/YYYY")} - {toDate.format("DD/MM/YYYY")}
+              </Typography>
+            </Box>
           </Grid>
           <Grid container spacing={4} justifyContent="center">
             {
