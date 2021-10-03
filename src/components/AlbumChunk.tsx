@@ -52,19 +52,19 @@ function AlbumChunk({ data } : AlbumsInterface) {
 
   return data.map((chunk : any, index: number) => {
     return (
-      <>
-       <Grid container={true} justifyContent="center" alignItems="center" direction="column">
-          <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>
-            {<AddIcon />}
-          </Button>
-          <Box padding="1rem">
-            <Typography component="h4">
-              {format(chunk.from * 1000, "dd/MM/yyyy")} - {format(chunk.to * 1000, "dd/MM/yyyy")}
-            </Typography>
-          </Box>
-        </Grid>
-      <AlbumGrid key={index} albums={chunk} />
-      </>
+      <div key={index}>
+         <Grid container={true} justifyContent="center" alignItems="center" direction="column">
+            <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>
+              {<AddIcon />}
+            </Button>
+            <Box padding="1rem">
+              <Typography component="h4">
+                {format(chunk.from * 1000, "dd/MM/yyyy")} - {format(chunk.to * 1000, "dd/MM/yyyy")}
+              </Typography>
+            </Box>
+          </Grid>
+        <AlbumGrid key={index} albums={chunk} />
+      </div>
     );
   });
 };

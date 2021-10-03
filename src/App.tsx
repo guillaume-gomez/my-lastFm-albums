@@ -24,8 +24,6 @@ interface AppInterface {
 }
 
 function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
-  console.log(lastFm)
-
   useEffect(() => {
     lasfmQueryWeekAlbum(defaultUser);
     fetchUser(defaultUser)

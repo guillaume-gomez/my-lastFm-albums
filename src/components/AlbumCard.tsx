@@ -10,6 +10,8 @@ import AlbumIcon from '@material-ui/icons/Album';
 import MicIcon from '@material-ui/icons/Mic';
 import HearingIcon from '@material-ui/icons/Hearing';
 
+//import { AlbumInfo } from "../reducers/albumInfosReducer";
+
 import cover from '../default-release-cd.png';
 
 interface AlbumCardInterface {
