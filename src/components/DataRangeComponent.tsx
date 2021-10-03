@@ -32,7 +32,7 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               id="date"
               label="from"
               value={from}
-              format={"yyyy-mm-dd"}
+              format={"dd/MM/yyyy"}
               onChange={(value) => (console.log(value))}
               //InputLabelProps={{className: classes.textFieldDateLabel}}
               //InputProps={{className: classes.textFieldDate}}
@@ -43,7 +43,7 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               color="primary"
               id="date"
               label="to"
-              format={"yyyy-mm-dd"}
+              format={"dd/MM/yyyy"}
               value={to}
               onChange={(value) => (console.log(value))}
               //InputLabelProps={{className: classes.textFieldDateLabel}}
