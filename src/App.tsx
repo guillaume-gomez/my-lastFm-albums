@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Footer from "./components/Footer";
 import ErrorMessage  from "./components/ErrorMessage";
 import MenuAppBar from "./components/MenuAppBar";
-import AlbumGrid from "./components/AlbumGrid";
+import AlbumChunk from "./components/AlbumChunk";
 
 import { connect } from 'react-redux';
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
@@ -87,7 +87,7 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
         onChangeDate={updateRangeDate} />
       <Container maxWidth="xl">
         {renderError()}
-        <AlbumGrid albums={lastFm.data} />
+        <AlbumChunk data={lastFm.data} />
       </Container>
       <Footer />
     </div>
