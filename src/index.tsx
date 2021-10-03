@@ -6,15 +6,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { createBrowserHistory } from "history";
-import { HashRouter, Route, Switch } from "react-router-dom";
 
 import { Provider } from 'react-redux';
 import store from './store';
-
-
-const hist = createBrowserHistory();
-
-
 
 ReactDOM.render(
   <React.StrictMode>

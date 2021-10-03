@@ -1,14 +1,9 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import logo from './lastfm.svg';
 import './App.css';
 
-import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Footer from "./components/Footer";
 import ErrorMessage  from "./components/ErrorMessage";
@@ -34,7 +29,7 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
   useEffect(() => {
     lasfmQueryWeekAlbum(defaultUser);
     fetchUser(defaultUser)
-  }, []);
+  }, [lasfmQueryWeekAlbum, fetchUser]);
 
   function getDateRange() {
     
@@ -50,11 +45,6 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
 
   function updateRangeDate() {
   }
-
-  function renderData() {
-
-  }
-
 
   function renderError() {
     const { error: ApiError } = lastFm;

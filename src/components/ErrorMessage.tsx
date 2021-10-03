@@ -1,11 +1,11 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
 
-interface ErrorMessage {
+interface ErrorMessageInterface {
   message: string;
 }
 
-function ErrorMessage({ message } : ErrorMessage) {
+function ErrorMessage({ message } : ErrorMessageInterface) {
   return <Typography  color="error">{message}</Typography>
 };
 
