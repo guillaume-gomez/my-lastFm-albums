@@ -25,7 +25,7 @@ function ImageAvatars({ classes, user } : ImageAvatarsInterface) {
   }
   const photo = user.user.image[0];
   return (
-    <Grid justifyContent="center">
+    <Grid container={true} justifyContent="center">
       <Avatar alt={user.user.name} src={photo["#text"]} className={classes.avatar} />
     </Grid>
   );
