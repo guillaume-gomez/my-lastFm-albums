@@ -181,7 +181,7 @@ class App extends Component {
           <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
           <h1 className="App-title animated bounce delay-10s">My albums list</h1>
         </Grid>
-        <MenuAppBar user={user} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
+        <MenuAppBar user={user} onChangeUser={(user) => this.props.fetchUser(user)} dateRange={this.getDateRange()} fromChange={this.updateFrom} toChange={this.updateTo} updateRangeDate={this.updateRangeDate} />
         <Container maxWidth="xl">
           {this.renderError()}
           {this.renderData()}

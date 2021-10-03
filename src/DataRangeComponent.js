@@ -75,7 +75,7 @@ class DataRangeComponent extends React.Component {
 
     return (
       <Box border="2px solid white" borderRadius="6px" padding="0.5rem">
-        <Grid container item spacing={3} justify="space-between" alignItems="center">
+        <Grid container item spacing={3} justifyContent="space-between" alignItems="center">
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <Grid item>
               <DatePicker

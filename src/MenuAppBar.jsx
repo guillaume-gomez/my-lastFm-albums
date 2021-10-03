@@ -12,7 +12,7 @@ import UserActions from "./UserActions";
 const styles = {
 };
 
-function MenuAppBar({ user, dateRange, fromChange, toChange, updateRangeDate }) {
+function MenuAppBar({ user, onChangeUser, dateRange, fromChange, toChange, updateRangeDate }) {
   return (
       <AppBar position="static">
         <Toolbar>
@@ -21,7 +21,7 @@ function MenuAppBar({ user, dateRange, fromChange, toChange, updateRangeDate }) 
               <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
             </Grid>
             <Grid item>
-              <UserActions user={user} />
+              <UserActions user={user} onChangeUser={onChangeUser} />
             </Grid>
           </Grid>
         </Toolbar>
