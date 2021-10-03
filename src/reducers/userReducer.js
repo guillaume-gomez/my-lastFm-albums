@@ -12,6 +12,7 @@ export default function(state = initialState, action) {
       const { user } = action;
       return { user, error: null }
     case userActions.FETCH_USER_DATA_ERRORS:
+      console.log("sjkfsjkfd")
       return Object.assign({}, state, { error: action.message });
     default:
       return state;

@@ -9,19 +9,22 @@ import Toolbar from '@material-ui/core/Toolbar';
 import DataRangeComponent from "./DataRangeComponent";
 import UserActions from "./UserActions";
 
-const styles = {
-};
+interface MenuAppBarInterface {
+  user: any;
+  onChangeUser: any;
+  onChangeDate: any;
+}
 
-function MenuAppBar({ user, onChangeUser, dateRange, fromChange, toChange, updateRangeDate }) {
+function MenuAppBar({ user, onChangeUser, onChangeDate } : MenuAppBarInterface) {
   return (
       <AppBar position="static">
         <Toolbar>
           <Grid container direction="row" alignItems="center" justifyContent="space-between">
             <Grid item>
-              <DataRangeComponent dateRange={dateRange} fromChange={fromChange} toChange={toChange} submitHandler={updateRangeDate}/>
+              <DataRangeComponent onChange={onChangeDate} />
             </Grid>
             <Grid item>
-              <UserActions user={user} onChangeUser={onChangeUser} />
+              <UserActions user={user} onChange={onChangeUser} />
             </Grid>
           </Grid>
         </Toolbar>
@@ -29,8 +32,5 @@ function MenuAppBar({ user, onChangeUser, dateRange, fromChange, toChange, updat
   );
 }
 
-MenuAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(MenuAppBar);
+export default MenuAppBar;

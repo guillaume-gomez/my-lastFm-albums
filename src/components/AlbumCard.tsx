@@ -12,17 +12,15 @@ import AlbumIcon from '@material-ui/icons/Album';
 import MicIcon from '@material-ui/icons/Mic';
 import HearingIcon from '@material-ui/icons/Hearing';
 
-import cover from './default-release-cd.png';
+import cover from '../default-release-cd.png';
 
-const styles = {
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-};
+interface AlbumCardInterface {
+  album: any
+}
 
-function AlbumCard({classes, album}) {
-  function renderIconAndInfo(icon, info) {
+function AlbumCard({album} : AlbumCardInterface) {
+
+  function renderIconAndInfo(icon: any, info: any) {
     return (
       <Grid container alignItems="center">
         <Grid item xs={2}>
@@ -38,11 +36,14 @@ function AlbumCard({classes, album}) {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card>
       <CardMedia
-        className={classes.media}
+        style={{
+          height: 0,
+          paddingTop: '56.25%', // 16:9
+        }}
         image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
-        title="Contemplative Reptile"
+        title={album.name}
       />
       <CardContent>
         {renderIconAndInfo(<MicIcon />, album.artist["#text"])}
@@ -58,8 +59,5 @@ function AlbumCard({classes, album}) {
   );
 }
 
-AlbumCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(AlbumCard);
+export default AlbumCard;

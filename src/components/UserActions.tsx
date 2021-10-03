@@ -14,7 +14,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ImageAvatars from "./ImageAvatars";
 
-function UserActions({user, onChangeUser }) {
+interface UserActionsInterface {
+  user: any;
+  onChange: any
+}
+
+function UserActions({user, onChange } : UserActionsInterface) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const anchorRef = useRef(null);
@@ -39,15 +44,13 @@ function UserActions({user, onChangeUser }) {
     setOpen(prevOpen => !prevOpen);
   };
 
-  function handleClose(event) {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+  function handleClose() {
+    if(anchorRef.current) {
+      setOpen(false);
     }
-
-    setOpen(false);
   };
 
-   function handleListKeyDown(event) {
+   function handleListKeyDown() {
   //   if (event.key === 'Tab') {
   //     event.preventDefault();
   //     setOpen(false);
@@ -87,7 +90,7 @@ function UserActions({user, onChangeUser }) {
                         ),
                       }}
                      />
-                     <Button color="primary" variant="contained" onClick={ () => { onChangeUser(search) }}>Search</Button>
+                     <Button color="primary" variant="contained" onClick={() => onChange(search)}>Search</Button>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
