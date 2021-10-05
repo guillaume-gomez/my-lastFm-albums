@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import logo from './lastfm.svg';
 import './App.css';
 
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -13,14 +14,17 @@ import AlbumChunk from "./components/AlbumChunk";
 import { connect } from 'react-redux';
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
 
+import { UserReducerState } from "./reducers/userReducer";
+import { AlbumsInfoState } from "./reducers/albumInfosReducer";
+
 const defaultUser = "musirama";
 
 interface AppInterface {
-  user: any;
+  user: UserReducerState;
   lastFm: any;
-  albumsInfos: any;
-  fetchUser: any;
-  lasfmQueryWeekAlbum: any;
+  albumsInfos: AlbumsInfoState;
+  fetchUser: (username: string) => void;
+  lasfmQueryWeekAlbum: (username: string, from?: string, to?: string) => void;
 }
 
 function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
@@ -57,7 +61,7 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
 
     const { error: userError } = user;
     if(userError) {
-      return <ErrorMessage message={userError.message} />
+      return <ErrorMessage message={userError} />
     }
 
     return <></>
@@ -74,8 +78,10 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
         onChangeUser={(user: string) => fetchUser(user)}
         onChangeDate={updateRangeDate} />
       <Container maxWidth="xl">
-        {renderError()}
-        <AlbumChunk data={lastFm.data} />
+        <Box padding="1rem">
+          {renderError()}
+          <AlbumChunk data={lastFm.data} />
+        </Box>
       </Container>
       <Footer />
     </div>
@@ -93,7 +99,7 @@ const mapStateToProps = (store : any) => {
 
 const mapDispatchToProps = (dispatch :any) => {
   return ({
-    lasfmQueryWeekAlbum: (user : any, from: any, to :any) => dispatch(lasfmQueryWeekAlbum(user, from, to)),
+    lasfmQueryWeekAlbum: (username: string, from?: string, to?: string) => dispatch(lasfmQueryWeekAlbum(username, from, to)),
     fetchUser: (user : string) => dispatch(fetchUser(user)),
     lasfmQueryWeeksAlbum: (user :any, weeks : any) => dispatch(lasfmQueryWeeksAlbum(user, weeks))
   });

@@ -1,14 +1,14 @@
 import { userActions } from "../constants";
 import { ImageType } from "../Interfaces";
 
-interface UserType {
+export interface UserType {
   name: string;
   playcount: string;
   url: string;
   image: [ImageType, ImageType, ImageType, ImageType]
 }
 
-interface UserReducerState {
+export interface UserReducerState {
   user: UserType | null;
   error: string | null;
 }

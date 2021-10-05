@@ -1,6 +1,6 @@
 import { lastFmActions, userActions, albumInfosActions } from "../constants";
 
-export function lasfmQueryWeeksAlbum(user, weeks) {
+export function lasfmQueryWeeksAlbum(user: string, weeks: any) {
   return {
     type: lastFmActions.FETCH_LAST_FM_WEEKS,
     user,
@@ -8,7 +8,7 @@ export function lasfmQueryWeeksAlbum(user, weeks) {
   };
 };
 
-export function lasfmQueryWeekAlbum(user, from = null, to = null) {
+export function lasfmQueryWeekAlbum(user: string, from?: string, to?: string) {
   return {
     type: lastFmActions.FETCH_LAST_FM,
     user,
@@ -17,7 +17,7 @@ export function lasfmQueryWeekAlbum(user, from = null, to = null) {
   };
 };
 
-export function lastFmWeekAlbum(data) {
+export function lastFmWeekAlbum(data: any) {
   return {
     type: lastFmActions.FETCH_LAST_FM_SUCCESS,
     payload: data.album,
@@ -26,35 +26,35 @@ export function lastFmWeekAlbum(data) {
   };
 }
 
-export function lastFmWeekAlbumError(message) {
+export function lastFmWeekAlbumError(message: string) {
   return {
     type: lastFmActions.FETCH_LAST_FM_ERRORS,
     message
   };
 }
 
-export function fetchUser(user) {
+export function fetchUser(user: string) {
   return {
     type: userActions.FETCH_USER_DATA,
     user
   };
 }
 
-export function fetchUserSuccess(user) {
+export function fetchUserSuccess(user: string) {
   return {
     type: userActions.FETCH_USER_DATA_SUCCESS,
     user
   };
 }
 
-export function fetchUserError(message) {
+export function fetchUserError(message: string) {
   return {
     type: userActions.FETCH_USER_DATA_ERRORS,
     message
   };
 }
 
-export function fetchAlbumInfos(user, album) {
+export function fetchAlbumInfos(user: string, album: any) {
   return {
     type: albumInfosActions.FETCH_ALBUMS_INFOS,
     album,
@@ -62,14 +62,14 @@ export function fetchAlbumInfos(user, album) {
   };
 }
 
-export function fetchAlbumInfosSuccess(album) {
+export function fetchAlbumInfosSuccess(album: any) {
   return {
     type: albumInfosActions.FETCH_ALBUMS_INFOS_SUCCESS,
     album
   };
 }
 
-export function fetchAlbumInfosError(message) {
+export function fetchAlbumInfosError(message: string) {
   return {
     type: albumInfosActions.FETCH_ALBUMS_INFOS_ERRORS,
     message

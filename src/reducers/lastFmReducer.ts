@@ -1,7 +1,27 @@
 import { lastFmActions } from "../constants";
 
+interface payloadInterface {
+  "@attr": {
+    rank: string;
+  }
+  artist: {
+    mbid: string;
+    "#text": string
+  }
+  mbid: string;
+  name: string;
+  playcount: string;
+  url: string;
+}
+
+interface chunkInterface {
+  from: string;
+  to: string;
+  payload: payloadInterface[];
+}
+
 interface LastFmReducerInterface {
-  data: Array<any> | null;
+  data: Array<any>;
   error: string | null;
 }
 
