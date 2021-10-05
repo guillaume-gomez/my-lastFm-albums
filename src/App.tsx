@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch :any) => {
   return ({
     lasfmQueryWeekAlbum: (username: string, from?: string, to?: string) => dispatch(lasfmQueryWeekAlbum(username, from, to)),
     fetchUser: (user : string) => dispatch(fetchUser(user)),
-    lasfmQueryWeeksAlbum: (user :any, weeks : any) => dispatch(lasfmQueryWeeksAlbum(user, weeks))
+    lasfmQueryWeeksAlbum: (user :string, weeks : any) => dispatch(lasfmQueryWeeksAlbum(user, weeks))
   });
 };
 
