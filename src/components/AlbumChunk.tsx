@@ -8,9 +8,11 @@ import AddIcon from '@material-ui/icons/Add';
 
 import AlbumGrid from "./AlbumGrid";
 
+import { chunkInterface } from "../reducers/lastFmReducer";
+
 
 interface AlbumsInterface {
-  data?: any;
+  data?: chunkInterface[];
 }
 
 function AlbumChunk({ data } : AlbumsInterface) {
@@ -49,24 +51,29 @@ function AlbumChunk({ data } : AlbumsInterface) {
     return { from: (from * 1000), to: (to * 1000) };*/
   }
 
-
-  return data.map((chunk : any, index: number) => {
-    return (
-      <div key={index}>
+  if(!data) {
+    return <></>;
+  }
+  else {
+    const chunksDom = data.map((chunk : chunkInterface, index: number) => 
+      (<div key={index}>
          <Grid container={true} justifyContent="center" alignItems="center" direction="column">
             <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>
               {<AddIcon />}
             </Button>
             <Box padding="1rem">
               <Typography component="h4">
-                {format(chunk.from * 1000, "dd/MM/yyyy")} - {format(chunk.to * 1000, "dd/MM/yyyy")}
+                {format(parseInt(chunk.from, 10) * 1000, "dd/MM/yyyy")} - {format(parseInt(chunk.to, 10) * 1000, "dd/MM/yyyy")}
               </Typography>
             </Box>
           </Grid>
-        <AlbumGrid key={index} albums={chunk} />
-      </div>
+        <AlbumGrid key={index} albums={chunk.payload} />
+      </div>)
     );
-  });
+    return <>{chunksDom}</>;
+  }
+
+
 };
 
 export default AlbumChunk;
