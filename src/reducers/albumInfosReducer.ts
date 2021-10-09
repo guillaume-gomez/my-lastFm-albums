@@ -1,11 +1,12 @@
 import { albumInfosActions } from "../constants";
+import { ImageType } from "../Interfaces";
 
 export interface AlbumInfo {
   artist: string;
+  image: [ImageType, ImageType, ImageType, ImageType, ImageType, ImageType];
   name: string;
   mbid: string;
   userplaycount: number;
-  cover?: string;
 }
 
 

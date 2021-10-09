@@ -1,6 +1,6 @@
 import { lastFmActions } from "../constants";
 
-interface payloadInterface {
+export interface payloadInterface {
   "@attr": {
     rank: string;
   }
@@ -14,14 +14,14 @@ interface payloadInterface {
   url: string;
 }
 
-interface chunkInterface {
+export interface chunkInterface {
   from: string;
   to: string;
   payload: payloadInterface[];
 }
 
-interface LastFmReducerInterface {
-  data: Array<any>;
+export interface LastFmReducerInterface {
+  data: chunkInterface[];
   error: string | null;
 }
 
