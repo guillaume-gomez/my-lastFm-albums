@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -12,10 +13,10 @@ import { chunkInterface } from "../reducers/lastFmReducer";
 
 
 interface AlbumsInterface {
-  data?: chunkInterface[];
+  chunks?: chunkInterface[];
 }
 
-function AlbumChunk({ data } : AlbumsInterface) {
+function AlbumChunk({ chunks } : AlbumsInterface) {
 
   function aggregateAlbumData(albumFromStore: any) {
     /*const { albumsInfos } = this.props;
@@ -51,11 +52,14 @@ function AlbumChunk({ data } : AlbumsInterface) {
     return { from: (from * 1000), to: (to * 1000) };*/
   }
 
-  if(!data) {
-    return <></>;
+  if(!chunks || chunks.length === 0) {
+    return (
+    <Grid container={true} justifyContent="center" alignItems="center">
+      <CircularProgress size={120}/>
+    </Grid>);
   }
   else {
-    const chunksDom = data.map((chunk : chunkInterface, index: number) => 
+    const chunksDom = chunks.map((chunk : chunkInterface, index: number) => 
       (<div key={index}>
          <Grid container={true} justifyContent="center" alignItems="center" direction="column">
             <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>

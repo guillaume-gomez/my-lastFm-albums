@@ -78,9 +78,9 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
         onChangeUser={(user: string) => fetchUser(user)}
         onChangeDate={updateRangeDate} />
       <Container maxWidth="xl">
-        <Box padding="1rem">
+        <Box padding="1rem" minHeight="60vh">
           {renderError()}
-          <AlbumChunk data={lastFm.data} />
+          <AlbumChunk chunks={lastFm.data} />
         </Box>
       </Container>
       <Footer />
