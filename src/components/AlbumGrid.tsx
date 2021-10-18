@@ -1,16 +1,20 @@
 import React from "react";
+import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { AlbumInterface } from "../reducers/lastFmReducer";
+import { AlbumsInfoState, getCover } from "../reducers/albumInfosReducer";
+
 import AlbumCard from "./AlbumCard";
 
-
 interface AlbumsInterface {
-  albums?: any;
+  albums: AlbumInterface[];
+  albumsInfos: AlbumsInfoState
 }
 
-function AlbumsGrid({ albums } : AlbumsInterface) {
+function AlbumsGrid({ albums, albumsInfos } : AlbumsInterface) {
   if(!albums) {
     return (
       <Grid container justifyContent="center" alignItems="center">
@@ -20,13 +24,12 @@ function AlbumsGrid({ albums } : AlbumsInterface) {
       </Grid>
     );
   }
-
   return (
     <Grid container={true} spacing={4} justifyContent="center">
-      { albums.payload.map((album: any, index: number) => {
+      { albums.map((album: AlbumInterface, index: number) => {
           return (
             <Grid key={index} item xs={3} xl={2} style={{height: "100%"}}>
-              <AlbumCard key={index} album={album}/>
+              <AlbumCard key={index} album={album} cover={getCover(albumsInfos, album.name, album.artist["#text"]) }/>
             </Grid>
           );
         })
@@ -36,4 +39,16 @@ function AlbumsGrid({ albums } : AlbumsInterface) {
 
 };
 
-export default AlbumsGrid;
+const mapStateToProps = (store : any) => {
+  return ({
+    albumsInfos: store.albumsInfos
+  });
+};
+
+const mapDispatchToProps = () => {
+  return ({
+  });
+};
+
+//export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumsGrid);

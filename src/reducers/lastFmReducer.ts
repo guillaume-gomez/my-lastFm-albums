@@ -1,6 +1,6 @@
-import { lastFmActions } from "../constants";
+import { lastFmActions, albumInfosActions } from "../constants";
 
-export interface payloadInterface {
+export interface AlbumInterface {
   "@attr": {
     rank: string;
   }
@@ -17,7 +17,7 @@ export interface payloadInterface {
 export interface chunkInterface {
   from: string;
   to: string;
-  payload: payloadInterface[];
+  payload: AlbumInterface[];
 }
 
 export interface LastFmReducerInterface {

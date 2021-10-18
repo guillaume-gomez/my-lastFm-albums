@@ -10,15 +10,16 @@ import AlbumIcon from '@material-ui/icons/Album';
 import MicIcon from '@material-ui/icons/Mic';
 import HearingIcon from '@material-ui/icons/Hearing';
 
-//import { AlbumInfo } from "../reducers/albumInfosReducer";
+import { AlbumInfo } from "../reducers/albumInfosReducer";
 
-import cover from '../default-release-cd.png';
+import defaultCover from '../default-release-cd.png';
 
 interface AlbumCardInterface {
-  album: any
+  album: any;
+  cover: string | null;
 }
 
-function AlbumCard({album} : AlbumCardInterface) {
+function AlbumCard({ album , cover} : AlbumCardInterface) {
 
   function renderIconAndInfo(icon: any, info: any) {
     return (
@@ -42,7 +43,7 @@ function AlbumCard({album} : AlbumCardInterface) {
           height: 0,
           paddingTop: '56.25%', // 16:9
         }}
-        image={album.cover && album.cover["#text"] ? album.cover["#text"] : cover}
+        image={cover ? cover : defaultCover}
         title={album.name}
       />
       <CardContent>

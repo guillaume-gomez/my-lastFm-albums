@@ -40,6 +40,11 @@ export default function(state : AlbumsInfoState = initialState, action: any) {
   }
 };
 
-export function albumKey(albumName: string, albumArtist: string) : string {
+function albumKey(albumName: string, albumArtist: string) : string {
   return snakeCase(`${albumName}_${albumArtist}`)
+}
+
+export function getCover(albumInfos : AlbumsInfoState, albumName: string, albumArtist: string) {
+  const key = albumKey(albumName, albumArtist);
+  return albumInfos.albums[key] ? albumInfos.albums[key].image[2]["#text"] : null;
 }
