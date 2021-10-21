@@ -22,12 +22,11 @@ const defaultUser = "musirama";
 interface AppInterface {
   user: UserReducerState;
   lastFm: any;
-  albumsInfos: AlbumsInfoState;
   fetchUser: (username: string) => void;
   lasfmQueryWeekAlbum: (username: string, from?: string, to?: string) => void;
 }
 
-function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
+function App({ user, lastFm, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
   useEffect(() => {
     lasfmQueryWeekAlbum(defaultUser);
     fetchUser(defaultUser)
@@ -52,11 +51,6 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
     const { error: ApiError } = lastFm;
     if(ApiError) {
       return <ErrorMessage message={ApiError} />
-    }
-
-    const { error: albumsError } = albumsInfos;
-    if(albumsError) {
-      return <ErrorMessage message={albumsError} />
     }
 
     const { error: userError } = user;
@@ -94,8 +88,7 @@ function App({ user, lastFm, albumsInfos, fetchUser, lasfmQueryWeekAlbum } : App
 const mapStateToProps = (store : any) => {
   return ({
     lastFm: store.lastFm,
-    user: store.user,
-    albumsInfos: store.albumsInfos
+    user: store.user
   });
 };
 
