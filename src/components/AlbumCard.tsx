@@ -61,4 +61,4 @@ function AlbumCard({ album , cover} : AlbumCardInterface) {
 }
 
 
-export default AlbumCard;
+export default React.memo(AlbumCard);
