@@ -1,5 +1,6 @@
 import React from "react";
 import { format } from 'date-fns';
+import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -17,20 +18,6 @@ interface AlbumsInterface {
 }
 
 function AlbumChunk({ chunks } : AlbumsInterface) {
-
-  function aggregateAlbumData(albumFromStore: any) {
-    /*const { albumsInfos } = this.props;
-    const { albums } = albumsInfos;
-    if(!albums || albums.length === 0) {
-      return albumFromStore;
-    }
-    const albumData = albums.find((album) => albumFromStore.name === album.name && albumFromStore.artist["#text"] === album.artist);
-    if(!albumData) {
-      return albumFromStore;
-    }
-    return Object.assign({}, albumFromStore, { cover: albumData.image[3] });*/
-  }
-
   function appendData() {
     /*const { lasfmQueryWeekAlbum, lastFm } = this.props;
     const lastChunk = lastFm.data[lastFm.data.length - 1];
@@ -40,17 +27,7 @@ function AlbumChunk({ chunks } : AlbumsInterface) {
     lasfmQueryWeekAlbum(defaultUser, newFrom, newTo);*/
   }
 
-  function getDateRange() {
-   /* const { lastFm } = this.props;
-    if(lastFm.data.length === 0) {
-      return { from: null, to: null};
-    }
-    const firstChunk = lastFm.data[0];
-    const lastChunk = lastFm.data[lastFm.data.length - 1];
-    const { from } = lastChunk;
-    const { to } = firstChunk;
-    return { from: (from * 1000), to: (to * 1000) };*/
-  }
+
 
   if(!chunks || chunks.length === 0) {
     return (
@@ -80,4 +57,15 @@ function AlbumChunk({ chunks } : AlbumsInterface) {
 
 };
 
-export default AlbumChunk;
+
+const mapStateToProps = (store : any) => {
+  return ({
+    chunks: store.lastFm.data
+  });
+};
+
+const mapDispatchToProps = (dispatch :any) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumChunk);
