@@ -14,9 +14,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ImageAvatars from "./ImageAvatars";
 
+import { UserReducerState } from "../reducers/userReducer";
+
 interface UserActionsInterface {
-  user: any;
-  onChange: any
+  user: UserReducerState;
+  onChange: (username: string) => void;
 }
 
 function UserActions({user, onChange } : UserActionsInterface) {
