@@ -1,11 +1,12 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { userActions } from "../constants";
 
-import { fetchUserSuccess, fetchUserError } from '../actions/lastFmActions';
+import { fetchUserSuccess, fetchUserError, resetLastFmData, lasfmQueryWeekAlbum } from '../actions/lastFmActions';
 
 const api_key = process.env.REACT_APP_API_KEY;
 
 function* lastfmQuery({ user }) {
+    yield put(resetLastFmData());
     let url = `https://ws.audioscrobbler.com/2.0/?method=user.getInfo&user=${user}&api_key=${api_key}&format=json`;
     const response = yield fetch(url, {
       method: 'get',
@@ -13,9 +14,10 @@ function* lastfmQuery({ user }) {
     .then((res) => res.json());
     const { error } = response;
     if(error) {
-      yield put(fetchUserError(response));
+      yield put(fetchUserError(response.message));
     } else {
       yield put(fetchUserSuccess(response.user));
+      yield put(lasfmQueryWeekAlbum(response.user.name));
     }
 }
 
