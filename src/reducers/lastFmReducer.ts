@@ -1,4 +1,4 @@
-import { lastFmActions, albumInfosActions } from "../constants";
+import { lastFmActions } from "../constants";
 
 export interface AlbumInterface {
   "@attr": {
@@ -39,6 +39,8 @@ export default function(state: LastFmReducerInterface = initialState, action: an
       return { data: [...state.data, newChunk], error: null }
     case lastFmActions.FETCH_LAST_FM_ERRORS:
       return { ...state, error: action.message };
+    case lastFmActions.RESET_LAST_FM:
+      return initialState;
     default:
       return state;
   }

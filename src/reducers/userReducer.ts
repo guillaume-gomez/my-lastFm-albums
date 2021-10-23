@@ -25,7 +25,7 @@ export default function(state = initialState, action: any) {
       const { user } = action;
       return { user, error: null }
     case userActions.FETCH_USER_DATA_ERRORS:
-      return Object.assign({}, state, { error: action.message });
+      return { user: null, error: action.message };
     default:
       return state;
   }
