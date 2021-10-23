@@ -21,14 +21,13 @@ const defaultUser = "musirama";
 
 interface AppInterface {
   user: UserReducerState;
-  lastFm: any;
+  lastFmError: string;
   fetchUser: (username: string) => void;
   lasfmQueryWeekAlbum: (username: string, from?: string, to?: string) => void;
 }
 
-function App({ user, lastFm, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
+function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
   useEffect(() => {
-    lasfmQueryWeekAlbum(defaultUser);
     fetchUser(defaultUser)
   }, [lasfmQueryWeekAlbum, fetchUser]);
 
@@ -48,9 +47,8 @@ function App({ user, lastFm, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
   }
 
   function renderError() {
-    const { error: ApiError } = lastFm;
-    if(ApiError) {
-      return <ErrorMessage message={ApiError} />
+    if(lastFmError) {
+      return <ErrorMessage message={lastFmError} />
     }
 
     const { error: userError } = user;
@@ -74,8 +72,10 @@ function App({ user, lastFm, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
       <Box bgcolor="text.disabled">
         <Container maxWidth="xl">
           <Box padding="1rem" minHeight="60vh">
-            {renderError()}
-            <AlbumChunk chunks={lastFm.data} />
+            <Grid justify="center">
+              {renderError()}
+            </Grid>
+            <AlbumChunk/>
           </Box>
         </Container>
       </Box>
@@ -87,7 +87,7 @@ function App({ user, lastFm, fetchUser, lasfmQueryWeekAlbum } : AppInterface) {
 
 const mapStateToProps = (store : any) => {
   return ({
-    lastFm: store.lastFm,
+    lastFmError: store.lastFm.error,
     user: store.user
   });
 };

@@ -26,6 +26,13 @@ export function lastFmWeekAlbum(data: any) {
   };
 }
 
+export function resetLastFmData() {
+  return {
+    type: lastFmActions.RESET_LAST_FM
+  }
+}
+
+
 export function lastFmWeekAlbumError(message: string) {
   return {
     type: lastFmActions.FETCH_LAST_FM_ERRORS,
