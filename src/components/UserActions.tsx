@@ -30,6 +30,7 @@ function UserActions({user, onChange } : UserActionsInterface) {
     if(!user.user) {
       return <CircularProgress />;
     }
+
     return (
       <span>
         <div>
