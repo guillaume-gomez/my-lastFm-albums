@@ -2,11 +2,13 @@ import React from "react";
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { AlbumInterface } from "../reducers/lastFmReducer";
 import { AlbumsInfoState, getCover } from "../reducers/albumInfosReducer";
 
+//import ErrorMessage from "./ErrorMessage";
 import AlbumCard from "./AlbumCard";
 
 interface AlbumsInterface {
@@ -15,6 +17,11 @@ interface AlbumsInterface {
 }
 
 function AlbumsGrid({ albums, albumsInfos } : AlbumsInterface) {
+/*  const { error: apiError } = albumsInfos;
+  if(apiError) {
+    return <ErrorMessage message={apiError} />
+  }*/
+
   if(!albums) {
     return (
       <Grid container justifyContent="center" alignItems="center">
@@ -24,6 +31,17 @@ function AlbumsGrid({ albums, albumsInfos } : AlbumsInterface) {
       </Grid>
     );
   }
+
+  if(albums.length === 0) {
+    return (
+      <Grid container justifyContent="center" alignItems="center">
+        <Typography component="h2">
+          No Scrobble for this week
+        </Typography>
+      </Grid>
+    )
+  }
+
   return (
     <Grid container={true} spacing={4} justifyContent="center">
       { albums.map((album: AlbumInterface, index: number) => {
