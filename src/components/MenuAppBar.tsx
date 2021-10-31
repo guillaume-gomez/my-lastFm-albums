@@ -7,26 +7,28 @@ import Toolbar from '@material-ui/core/Toolbar';
 import DataRangeComponent from "./DataRangeComponent";
 import UserActions from "./UserActions";
 
+import { UserReducerState } from "../reducers/userReducer";
+
 interface MenuAppBarInterface {
-  user: any;
-  onChangeUser: any;
-  onChangeDate: any;
+  user: UserReducerState;
+  onChangeUser: (username: string) => void;
+  onChangeDate: () => void;
 }
 
 function MenuAppBar({ user, onChangeUser, onChangeDate } : MenuAppBarInterface) {
   return (
-      <AppBar position="static">
-        <Toolbar>
-          <Grid container direction="row" alignItems="center" justifyContent="space-between">
-            <Grid item>
-              <DataRangeComponent onChange={onChangeDate} />
-            </Grid>
-            <Grid item>
-              <UserActions user={user} onChange={onChangeUser} />
-            </Grid>
+    <AppBar position="static">
+      <Toolbar>
+        <Grid container direction="row" alignItems="center" justifyContent="space-between">
+          <Grid item>
+            <DataRangeComponent onChange={onChangeDate} />
           </Grid>
-        </Toolbar>
-      </AppBar>
+          <Grid item>
+            <UserActions user={user} onChange={onChangeUser} />
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 }
 
