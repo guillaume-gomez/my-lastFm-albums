@@ -53,11 +53,12 @@ function UserActions({user, onChange } : UserActionsInterface) {
     }
   };
 
-   function handleListKeyDown() {
-  //   if (event.key === 'Tab') {
-  //     event.preventDefault();
-  //     setOpen(false);
-  //   }
+   function handleListKeyDown(event: any) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onChange(search)
+      setOpen(false);
+    }
    }
 
   return (
