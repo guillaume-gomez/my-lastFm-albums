@@ -3,7 +3,7 @@ import { userActions } from "../constants";
 
 import { fetchUserSuccess, fetchUserError, resetLastFmData, lasfmQueryWeekAlbum } from '../actions/lastFmActions';
 
-const api_key = process.env.REACT_APP_API_KEY;
+const api_key = import.meta.env.VITE_LAST_FM;
 
 function* lastfmQuery({ user }) {
     yield put(resetLastFmData());

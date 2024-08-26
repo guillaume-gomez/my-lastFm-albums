@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-
-const styles = {
-  avatar: {
-    margin: 10,
-  },
-  bigAvatar: {
-    width: 60,
-    height: 60,
-  },
-};
-
-interface ImageAvatarsInterface {
-  user: any;
-  classes: any;
-}
+import { withStyles } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
 
 function ImageAvatars({ classes, user } : ImageAvatarsInterface) {
   if(!user.user) {
@@ -26,13 +11,10 @@ function ImageAvatars({ classes, user } : ImageAvatarsInterface) {
   const photo = user.user.image[0];
   return (
     <Grid container={true} justifyContent="center">
-      <Avatar alt={user.user.name} src={photo["#text"]} className={classes.avatar} />
+      <Avatar alt={user.user.name} src={photo["#text"]} />
     </Grid>
   );
 }
 
-ImageAvatars.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(ImageAvatars);
+export default ImageAvatars;

@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { AlbumInterface } from "../reducers/lastFmReducer";
 import { AlbumsInfoState, getCover } from "../reducers/albumInfosReducer";
 
 //import ErrorMessage from "./ErrorMessage";
 import AlbumCard from "./AlbumCard";
+import Box from '@mui/material/Box';
 
 interface AlbumsInterface {
   albums: AlbumInterface[];

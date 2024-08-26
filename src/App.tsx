@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import logo from './lastfm.svg';
-import './App.css';
+import logo from './assets/lastfm.svg';
 
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 import Footer from "./components/Footer";
 import ErrorMessage  from "./components/ErrorMessage";
@@ -16,6 +14,9 @@ import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/
 
 import { UserReducerState } from "./reducers/userReducer";
 import { AlbumsInfoState } from "./reducers/albumInfosReducer";
+
+// for vite, should be at the bottom to avoid issues
+import Box from '@mui/material/Box';
 
 const defaultUser = "musirama";
 
@@ -62,8 +63,13 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
   return (
     <div>
       <Grid className="App-header" container direction="column" justifyContent="center" alignItems="center">
-        <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
-        <h1 className="App-title animated bounce delay-10s">My albums list</h1>
+        <img
+          src={logo}
+          style={{ width: 56, height: 56 }}
+          className="animate__animated animate__pulse animate__infinite animate__slower"
+          alt="logo"
+        />
+        <h1 className="animate__animated animate__bounce animate__delay-1s">My albums list</h1>
       </Grid>
       <MenuAppBar
         user={user}

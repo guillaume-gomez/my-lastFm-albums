@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import NavigationIcon from '@material-ui/icons/Navigation';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import Button from '@mui/material/Button';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import Grid from '@mui/material/Grid';
 
-/* eslint-disable */
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
-// pick utils
-import DateFnsUtils from '@date-io/date-fns';
+
+import { LocalizationProvider } from '@mui/x-date-pickers';
+// If you are using date-fns v3.x, please import the v3 adapter
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import Box from '@mui/material/Box';
 
 interface DataRangeComponentInterface {
   onChange: any;
@@ -24,7 +26,7 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
   return (
     <Box border="2px solid white" borderRadius="6px" padding="0.5rem">
       <Grid container item spacing={3} justifyContent="space-between" alignItems="center">
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid item>
             <DatePicker
               color="primary"
@@ -55,7 +57,7 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               Update
             </Button>
            </Grid>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
       </Grid>
     </Box>
   );
