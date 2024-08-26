@@ -3,9 +3,12 @@ import Button from '@mui/material/Button';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Grid from '@mui/material/Grid';
 
-import DatePicker from '@mui/lab/DatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
+import { LocalizationProvider } from '@mui/x-date-pickers';
+// If you are using date-fns v3.x, please import the v3 adapter
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import Box from '@mui/material/Box';
 
 interface DataRangeComponentInterface {
