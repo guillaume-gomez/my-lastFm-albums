@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -24,10 +25,13 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
   }
 
   return (
-    <Box border="2px solid white" borderRadius="6px" padding="0.5rem">
-      <Grid container item spacing={3} justifyContent="space-between" alignItems="center">
+    <Box sx={{
+          bgcolor: '#222222',
+          borderRadius: 2,
+          p: "0.5rem"
+        }}>
+      <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center">
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Grid item>
             <DatePicker
               color="primary"
               id="date"
@@ -35,11 +39,7 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               value={from}
               format={"dd/MM/yyyy"}
               onChange={(value) => (console.log(value))}
-              //InputLabelProps={{className: classes.textFieldDateLabel}}
-              //InputProps={{className: classes.textFieldDate}}
             />
-          </Grid>
-          <Grid item>
             <DatePicker
               color="primary"
               id="date"
@@ -47,18 +47,19 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               format={"dd/MM/yyyy"}
               value={to}
               onChange={(value) => (console.log(value))}
-              //InputLabelProps={{className: classes.textFieldDateLabel}}
-              //InputProps={{className: classes.textFieldDate}}
             />
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="secondary" aria-label="Submit" onClick={updateDataRange}>
+            <Button
+              variant="contained"
+              color="secondary"
+              aria-label="Submit"
+              onClick={updateDataRange}
+            >
               <NavigationIcon/>
               Update
             </Button>
-           </Grid>
+
         </LocalizationProvider>
-      </Grid>
+      </Stack>
     </Box>
   );
 }

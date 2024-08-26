@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import logo from './assets/lastfm.svg';
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 import Footer from "./components/Footer";
 import ErrorMessage  from "./components/ErrorMessage";
 import MenuAppBar from "./components/MenuAppBar";
 import AlbumChunk from "./components/AlbumChunk";
+import DataRangeComponent from "./components/DataRangeComponent";
+
 
 import { connect } from 'react-redux';
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
@@ -61,22 +63,16 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
   }
 
   return (
-    <div>
-      <Grid className="App-header" container direction="column" justifyContent="center" alignItems="center">
-        <img
-          src={logo}
-          style={{ width: 56, height: 56 }}
-          className="animate__animated animate__pulse animate__infinite animate__slower"
-          alt="logo"
-        />
-        <h1 className="animate__animated animate__bounce animate__delay-1s">My albums list</h1>
-      </Grid>
+    <Stack>
       <MenuAppBar
         user={user}
         onChangeUser={(user: string) => fetchUser(user)}
-        onChangeDate={updateRangeDate} />
-      <Box bgcolor="text.disabled">
+       />
+      <Box>
         <Container maxWidth="xl">
+          <Grid item>
+            <DataRangeComponent onChange={updateRangeDate} />
+          </Grid>
           <Box padding="1rem" minHeight="60vh">
             <Grid justify="center">
               {renderError()}
@@ -86,7 +82,7 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
         </Container>
       </Box>
       <Footer />
-    </div>
+    </Stack>
   );
 }
 
