@@ -43,10 +43,14 @@ function AlbumsGrid({ albums, albumsInfos } : AlbumsInterface) {
   }
 
   return (
-    <Grid container={true} spacing={4} justifyContent="center">
+    <Grid
+      container={true}
+      spacing={4}
+      justifyContent="center"
+    >
       { albums.map((album: AlbumInterface, index: number) => {
           return (
-            <Grid key={index} item xs={3} xl={2} style={{height: "100%"}}>
+            <Grid key={index} item xs={5} sm={4} md={3} xl={2} style={{height: "100%"}}>
               <AlbumCard key={index} album={album} cover={getCover(albumsInfos, album.name, album.artist["#text"]) }/>
             </Grid>
           );

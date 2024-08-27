@@ -6,7 +6,7 @@ function Footer() {
     <Stack
       sx={{
         p: "1rem",
-        bgcolor: '#222222',
+        backgroundColor: 'primary.main',
       }}
       direction="column"
       alignItems="center"

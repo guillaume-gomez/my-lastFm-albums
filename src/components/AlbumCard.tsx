@@ -37,7 +37,7 @@ function AlbumCard({ album , cover} : AlbumCardInterface) {
   }
 
   return (
-    <Card>
+    <Card sx={{border: "2px solid #444", backgroundColor: "#555"}}>
       <CardMedia
         style={{
           height: 0,

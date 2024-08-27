@@ -26,14 +26,13 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
 
   return (
     <Box sx={{
-          bgcolor: '#222222',
+          backgroundColor: '#222222',
           borderRadius: 2,
           p: "0.5rem"
         }}>
-      <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center">
+      <Stack direction="row" spacing={3} justifyContent="start" alignItems="center">
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              color="primary"
               id="date"
               label="from"
               value={from}
@@ -41,7 +40,6 @@ function DataRangeComponent({ onChange }: DataRangeComponentInterface) {
               onChange={(value) => (console.log(value))}
             />
             <DatePicker
-              color="primary"
               id="date"
               label="to"
               format={"dd/MM/yyyy"}

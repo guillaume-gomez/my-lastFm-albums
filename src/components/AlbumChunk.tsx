@@ -37,9 +37,14 @@ function AlbumChunk({ chunks } : AlbumsInterface) {
   }
   else {
     const chunksDom = chunks.map((chunk : chunkInterface, index: number) => 
-      (<div key={index}>
-         <Grid container={true} justifyContent="center" alignItems="center" direction="column">
-            <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>
+      (<div key={index} style={{padding: 16, backgroundColor: "#212121", borderRadius: 6}}>
+         <Grid
+            container={true}
+            justifyContent="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Button onClick={appendData} variant="contained" color="primary" aria-label="Add" style={{margin: 20}}>
               {<AddIcon />}
             </Button>
             <Box padding="1rem">

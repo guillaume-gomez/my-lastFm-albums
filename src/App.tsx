@@ -73,7 +73,7 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
           <Grid item>
             <DataRangeComponent onChange={updateRangeDate} />
           </Grid>
-          <Box padding="1rem" minHeight="60vh">
+          <Box minHeight="60vh" sx={{ py: 4 }}>
             <Grid justify="center">
               {renderError()}
             </Grid>
