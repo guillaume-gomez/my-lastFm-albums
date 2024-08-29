@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 
 import ImageAvatars from "./ImageAvatars";
 
@@ -54,15 +55,17 @@ function UserActions({user, onChange } : UserActionsInterface) {
   };
 
    function handleListKeyDown() {
-  //   if (event.key === 'Tab') {
-  //     event.preventDefault();
-  //     setOpen(false);
-  //   }
+     if (event.key === 'Tab') {
+       event.preventDefault();
+       setOpen(false);
+     }
    }
 
   return (
     <div>
       <Button
+        variant="text"
+        color="secondary"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
@@ -80,20 +83,34 @@ function UserActions({user, onChange } : UserActionsInterface) {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem>
-                     <TextField
-                      id="input-with-icon-textfield"
-                      label="Username"
-                      value={search}
-                      onChange={(event) => { setSearch(event.target.value) } }
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <AccountCircle />
-                          </InputAdornment>
-                        ),
-                      }}
-                     />
-                     <Button color="primary" variant="contained" onClick={() => onChange(search)}>Search</Button>
+                     <Stack
+                        direction="row"
+                        spacing={2}
+                        sx={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                    >
+                       <TextField
+                        id="input-with-icon-textfield"
+                        label="Username"
+                        value={search}
+                        onChange={(event) => { setSearch(event.target.value) } }
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <AccountCircle />
+                            </InputAdornment>
+                          ),
+                        }}
+                       />
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => onChange(search)}>
+                          Search
+                      </Button>
+                    </Stack>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
