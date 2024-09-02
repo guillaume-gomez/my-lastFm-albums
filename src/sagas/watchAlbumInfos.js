@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 
 import { fetchAlbumInfosSuccess, fetchAlbumInfosError} from '../actions/lastFmActions';
 
-const api_key = process.env.REACT_APP_API_KEY;
+const api_key = import.meta.env.VITE_LAST_FM;
 
 export function* lastFmAlbumInfosQuery(params) {
     try {

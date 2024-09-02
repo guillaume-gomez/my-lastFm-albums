@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import TextField from '@material-ui/core/TextField';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 
 import ImageAvatars from "./ImageAvatars";
 
@@ -53,17 +54,19 @@ function UserActions({user, onChange } : UserActionsInterface) {
     }
   };
 
-   function handleListKeyDown(event: any) {
+  function handleListKeyDown(event: any) {
     if (event.key === 'Enter') {
       event.preventDefault();
       onChange(search)
       setOpen(false);
     }
-   }
+  }
 
   return (
     <div>
       <Button
+        variant="text"
+        color="secondary"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
@@ -81,20 +84,34 @@ function UserActions({user, onChange } : UserActionsInterface) {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem>
-                     <TextField
-                      id="input-with-icon-textfield"
-                      label="Username"
-                      value={search}
-                      onChange={(event) => { setSearch(event.target.value) } }
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <AccountCircle />
-                          </InputAdornment>
-                        ),
-                      }}
-                     />
-                     <Button color="primary" variant="contained" onClick={() => onChange(search)}>Search</Button>
+                     <Stack
+                        direction="row"
+                        spacing={2}
+                        sx={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                    >
+                       <TextField
+                        id="input-with-icon-textfield"
+                        label="Username"
+                        value={search}
+                        onChange={(event) => { setSearch(event.target.value) } }
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <AccountCircle />
+                            </InputAdornment>
+                          ),
+                        }}
+                       />
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => onChange(search)}>
+                          Search
+                      </Button>
+                    </Stack>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

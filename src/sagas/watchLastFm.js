@@ -5,7 +5,7 @@ import { lastFmWeekAlbum, lastFmWeekAlbumError} from '../actions/lastFmActions';
 
 import { lastFmAlbumInfosQuery } from "./watchAlbumInfos";
 
-const api_key = process.env.REACT_APP_API_KEY;
+const api_key = import.meta.env.VITE_LAST_FM;
 
 function* lastfmQuery({ user, from, to }) {
     let url = `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${user}&api_key=${api_key}&format=json`;

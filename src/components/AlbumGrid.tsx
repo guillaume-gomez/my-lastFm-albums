@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { AlbumInterface } from "../reducers/lastFmReducer";
 import { AlbumsInfoState, getCover } from "../reducers/albumInfosReducer";
 
 //import ErrorMessage from "./ErrorMessage";
 import AlbumCard from "./AlbumCard";
+import Box from '@mui/material/Box';
 
 interface AlbumsInterface {
   albums: AlbumInterface[];
@@ -43,10 +43,14 @@ function AlbumsGrid({ albums, albumsInfos } : AlbumsInterface) {
   }
 
   return (
-    <Grid container={true} spacing={4} justifyContent="center">
+    <Grid
+      container={true}
+      spacing={4}
+      justifyContent="center"
+    >
       { albums.map((album: AlbumInterface, index: number) => {
           return (
-            <Grid key={index} item xs={3} xl={2} style={{height: "100%"}}>
+            <Grid key={index} item xs={5} sm={4} md={3} xl={2} style={{height: "100%"}}>
               <AlbumCard key={index} album={album} cover={getCover(albumsInfos, album.name, album.artist["#text"]) }/>
             </Grid>
           );

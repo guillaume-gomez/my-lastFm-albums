@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import logo from './lastfm.svg';
-import './App.css';
 
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 import Footer from "./components/Footer";
 import ErrorMessage  from "./components/ErrorMessage";
 import MenuAppBar from "./components/MenuAppBar";
 import AlbumChunk from "./components/AlbumChunk";
+import DataRangeComponent from "./components/DataRangeComponent";
+
 
 import { connect } from 'react-redux';
 import { lasfmQueryWeekAlbum, fetchUser, lasfmQueryWeeksAlbum } from "./actions/lastFmActions";
 
 import { UserReducerState } from "./reducers/userReducer";
 import { AlbumsInfoState } from "./reducers/albumInfosReducer";
+
+// for vite, should be at the bottom to avoid issues
+import Box from '@mui/material/Box';
 
 const defaultUser = "musirama";
 
@@ -60,18 +63,17 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
   }
 
   return (
-    <div>
-      <Grid className="App-header" container direction="column" justifyContent="center" alignItems="center">
-        <img src={logo} className="App-logo animated pulse infinite delay-10s" alt="logo" />
-        <h1 className="App-title animated bounce delay-10s">My albums list</h1>
-      </Grid>
+    <Stack>
       <MenuAppBar
         user={user}
         onChangeUser={(user: string) => fetchUser(user)}
-        onChangeDate={updateRangeDate} />
-      <Box bgcolor="text.disabled">
+       />
+      <Box>
         <Container maxWidth="xl">
-          <Box padding="1rem" minHeight="60vh">
+          <Grid item>
+            <DataRangeComponent onChange={updateRangeDate} />
+          </Grid>
+          <Box minHeight="60vh" sx={{ py: 4 }}>
             <Grid justify="center">
               {renderError()}
             </Grid>
@@ -80,7 +82,7 @@ function App({ user, lastFmError, fetchUser, lasfmQueryWeekAlbum } : AppInterfac
         </Container>
       </Box>
       <Footer />
-    </div>
+    </Stack>
   );
 }
 

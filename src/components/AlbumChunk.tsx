@@ -1,12 +1,12 @@
 import React from "react";
 import { format } from 'date-fns';
 import { connect } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
 
 import AlbumGrid from "./AlbumGrid";
 
@@ -37,9 +37,14 @@ function AlbumChunk({ chunks } : AlbumsInterface) {
   }
   else {
     const chunksDom = chunks.map((chunk : chunkInterface, index: number) => 
-      (<div key={index}>
-         <Grid container={true} justifyContent="center" alignItems="center" direction="column">
-            <Button onClick={appendData} variant="outlined" color="primary" aria-label="Add" style={{margin: 20}}>
+      (<div key={index} style={{padding: 16, backgroundColor: "#212121", borderRadius: 6}}>
+         <Grid
+            container={true}
+            justifyContent="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Button onClick={appendData} variant="contained" color="primary" aria-label="Add" style={{margin: 20}}>
               {<AddIcon />}
             </Button>
             <Box padding="1rem">

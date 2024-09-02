@@ -3,7 +3,7 @@ import { lastFmActions } from "../constants";
 
 import { lastfmQuery } from "./watchLastFm";
 
-const api_key = process.env.REACT_APP_API_KEY;
+const api_key = import.meta.env.VITE_LAST_FM;
 
 function* lastfmWeeksQuery({ user, weeks }) {
   const data = [];
